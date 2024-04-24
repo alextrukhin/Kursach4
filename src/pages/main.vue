@@ -2,7 +2,16 @@
 import MainCard from "../components/MainCard.vue";
 </script>
 <template>
+  <div class="banner">
+    <h1>FLOWERS MARKET</h1>
+    <button>
+      <p>BUY NOW!</p>
+    </button>
+  </div>
   <div class="main-cards-container">
+    <div>
+      <MainCard photoUrl="../../Logo.svg" title="Заголовок картки" />
+    </div>
     <div>
       <MainCard photoUrl="../../Logo.svg" title="Заголовок картки" />
     </div>
