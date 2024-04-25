@@ -26,7 +26,7 @@ defineProps({
   align-items: center;
 }
 .card-container {
-  height: 260px;
+  height: 270px;
   width: 200px;
 }
 .card:hover {
@@ -40,7 +40,6 @@ defineProps({
   background: #f9eff2;
   margin-bottom: 20px;
 }
-
 .card-img {
   width: 100%;
   height: 100%;
@@ -48,6 +47,7 @@ defineProps({
   object-position: center;
   border-radius: 10px;
 }
+
 .card-title {
   color: #370017;
   text-align: center;
@@ -57,6 +57,6 @@ defineProps({
   font-weight: 400;
   line-height: normal;
   text-transform: uppercase;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 0 auto;
 }
 </style>
