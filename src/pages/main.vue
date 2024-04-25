@@ -12,28 +12,34 @@ import MainCard from "../components/MainCard.vue";
   </div>
   <div class="main-cards-container">
     <div>
-      <MainCard photoUrl="../../100&1roses.jpg" title="100 & 1 Roses" />
+      <RouterLink to="/flower/11">
+        <MainCard photoUrl="../../100&1roses.jpg" title="100 & 1 Roses" />
+      </RouterLink>
     </div>
     <div>
-      <MainCard photoUrl="../../springBouquet.jpg" title="spring bouquet" />
+      <RouterLink to="/flower/12">
+        <MainCard photoUrl="../../springBouquet.jpg" title="spring bouquet" />
+      </RouterLink>
     </div>
-    <RouterLink to="/bunch/1">
-			<MainCard
-				photoUrl="../../bouquetOfLilies.jpg"
-				title="bouquet of lilies"
-			/>
-		</RouterLink>
-		<RouterLink to="/flower/1">
-			<MainCard
-				photoUrl="../../bouquetOfPeonies.jpg"
-				title="bouquet of peonies"
-			/>
-		</RouterLink>
-    <div>
+    <RouterLink to="/flower/13">
       <MainCard
-        photoUrl="../../bouquetOfGerberas.jpg"
-        title="bouquet of gerberas"
+        photoUrl="../../bouquetOfLilies.jpg"
+        title="bouquet of lilies"
       />
+    </RouterLink>
+    <RouterLink to="/flower/14">
+      <MainCard
+        photoUrl="../../bouquetOfPeonies.jpg"
+        title="bouquet of peonies"
+      />
+    </RouterLink>
+    <div>
+      <RouterLink to="/flower/15">
+        <MainCard
+          photoUrl="../../bouquetOfGerberas.jpg"
+          title="bouquet of gerberas"
+        />
+      </RouterLink>
     </div>
   </div>
 </template>

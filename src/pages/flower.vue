@@ -1,5 +1,6 @@
 <template>
   <h1>Кvitka</h1>
+
   <div>
     <div v-if="product">
       {{ product.name }}

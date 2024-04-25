@@ -30,8 +30,10 @@ defineProps({
   width: 200px;
 }
 .card:hover {
+  cursor: pointer;
   border-radius: 10px;
   background: #f9eff2;
+  box-shadow: 1px 2px 2px 0px rgba(55, 0, 23, 0.1);
 }
 .photo-container {
   width: 200px;
