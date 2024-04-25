@@ -17,18 +17,18 @@ import MainCard from "../components/MainCard.vue";
     <div>
       <MainCard photoUrl="../../springBouquet.jpg" title="spring bouquet" />
     </div>
-    <div>
-      <MainCard
-        photoUrl="../../bouquetOfLilies.jpg"
-        title="bouquet of lilies"
-      />
-    </div>
-    <div>
-      <MainCard
-        photoUrl="../../bouquetOfPeonies.jpg"
-        title="bouquet of peonies"
-      />
-    </div>
+    <RouterLink to="/bunch/1">
+			<MainCard
+				photoUrl="../../bouquetOfLilies.jpg"
+				title="bouquet of lilies"
+			/>
+		</RouterLink>
+		<RouterLink to="/flower/1">
+			<MainCard
+				photoUrl="../../bouquetOfPeonies.jpg"
+				title="bouquet of peonies"
+			/>
+		</RouterLink>
     <div>
       <MainCard
         photoUrl="../../bouquetOfGerberas.jpg"
