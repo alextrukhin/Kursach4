@@ -19,7 +19,7 @@ footer {
   height: 180px;
   display: flex;
   flex-direction: row;
-  position: sticky;
+  /*position: sticky;*/
   bottom: 0;
   background: linear-gradient(0deg, #f9eff2 0%, #fff 100%);
 }

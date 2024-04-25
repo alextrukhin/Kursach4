@@ -4,16 +4,36 @@ import MainCard from "../components/MainCard.vue";
 <template>
   <div class="banner">
     <h1>FLOWERS MARKET</h1>
-    <button>
-      <p>BUY NOW!</p>
-    </button>
+    <RouterLink to="/catalog">
+      <div class="btn">
+        <p>BUY NOW!</p>
+      </div>
+    </RouterLink>
   </div>
   <div class="main-cards-container">
     <div>
-      <MainCard photoUrl="../../Logo.svg" title="Заголовок картки" />
+      <MainCard photoUrl="../../100&1roses.jpg" title="100 & 1 Roses" />
     </div>
     <div>
-      <MainCard photoUrl="../../Logo.svg" title="Заголовок картки" />
+      <MainCard photoUrl="../../springBouquet.jpg" title="spring bouquet" />
+    </div>
+    <div>
+      <MainCard
+        photoUrl="../../bouquetOfLilies.jpg"
+        title="bouquet of lilies"
+      />
+    </div>
+    <div>
+      <MainCard
+        photoUrl="../../bouquetOfPeonies.jpg"
+        title="bouquet of peonies"
+      />
+    </div>
+    <div>
+      <MainCard
+        photoUrl="../../bouquetOfGerberas.jpg"
+        title="bouquet of gerberas"
+      />
     </div>
   </div>
 </template>
@@ -44,7 +64,7 @@ import MainCard from "../components/MainCard.vue";
   line-height: normal;
 }
 
-.banner button {
+.btn {
   cursor: pointer;
   border: 0px solid transparent;
   border-radius: 50px;
@@ -53,8 +73,12 @@ import MainCard from "../components/MainCard.vue";
   height: 100px;
   margin-top: 80px;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.banner button:hover {
+
+.btn:hover {
   width: 510px;
   height: 110px;
   border-radius: 55px;
@@ -75,6 +99,7 @@ p {
   padding: 0;
 }
 .main-cards-container {
+  display: flex;
   justify-content: space-between;
   width: 1200px;
   padding: 0;
