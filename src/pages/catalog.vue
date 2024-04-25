@@ -5,7 +5,10 @@
       v-for="product in productsStore.products"
       :key="product.id"
       class="product-card"
+      <!--v-if="product.description === 'Flower'"
+      --
     >
+      >
       <RouterLink :to="`/flower/${product.id}`">
         <CatalogCard
           :photoUrl="product.image || ''"
