@@ -202,6 +202,10 @@ h3 {
   justify-content: space-between;
   margin-bottom: 25px;
 }
+.add-to-cart:hover {
+  box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
+  cursor: pointer;
+}
 .add-to-cart-btn {
   margin: 0 auto 0;
   padding: 0;
@@ -212,5 +216,15 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+.add-to-cart-btn:hover,
+.add-to-cart-btn:active,
+.add-to-cart-btn:focus {
+  background: transparent;
+  outline: none;
+  box-shadow: none;
 }
 </style>
