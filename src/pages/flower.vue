@@ -1,6 +1,23 @@
 <template>
-  <h1>Кvitka</h1>
-
+  <div v-if="product" class="container">
+    <div class="photo-container">
+      <div class="photo">
+        <img
+          v-if="product.image"
+          :src="product.image"
+          :alt="product.name"
+          class="product-image"
+        />
+        <img
+          v-else
+          src="https://via.placeholder.com/350x400?text=No+image"
+          alt="Default"
+          class="product-image"
+        />
+      </div>
+    </div>
+    <div class="info-container"></div>
+  </div>
   <div>
     <div v-if="product">
       {{ product.name }}
@@ -54,3 +71,18 @@ const product = computed(() => {
   return productsStore.getProductByID(parseInt(route.params.id.toString()));
 });
 </script>
+<style scoped>
+.container {
+  width: 1200px;
+  margin: 150px auto 75px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+.photo-container {
+  width: 600px;
+  height: 500px;
+  border-radius: 10px;
+  background: #f9eff2;
+}
+</style>

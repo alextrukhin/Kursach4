@@ -7,10 +7,7 @@ import { RouterLink } from "vue-router";
       <div class="logo">
         <RouterLink to="/">
           <div class="logo-container">
-            <img
-              style="height: 60px; margin: 10px 30px 10px 0"
-              src="../../Logo.svg"
-            />
+            <img class="logo-img" src="../../Logo.svg" />
             <h1>Flowers Market</h1>
           </div>
         </RouterLink>
@@ -18,7 +15,7 @@ import { RouterLink } from "vue-router";
 
       <div class="cart">
         <RouterLink to="/cart">
-          <img style="height: 60px; margin: 10px 0" src="../../Cart.svg" />
+          <img style="height: 60px" src="../../Cart.svg" />
         </RouterLink>
       </div>
     </div>
@@ -45,6 +42,15 @@ header {
   display: flex;
   align-items: left;
 }
+.logo-img {
+  height: 60px;
+  margin: 10px 30px 10px 0;
+  border-radius: 30px;
+}
+.logo-img:hover {
+  box-shadow: 1px 1px 2px 0px rgba(55, 0, 23, 0.1);
+  cursor: pointer;
+}
 h1 {
   color: #370017;
   font-family: "Yeseva One";
@@ -53,5 +59,20 @@ h1 {
   font-weight: 400;
   line-height: normal;
   text-transform: uppercase;
+}
+.cart {
+  height: 70px;
+  width: 70px;
+  margin: 5px 0;
+  border-radius: 35px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cart:hover {
+  background-color: #f9eff2;
+  box-shadow: 1px 1px 2px 0px rgba(55, 0, 23, 0.1);
+  cursor: pointer;
 }
 </style>

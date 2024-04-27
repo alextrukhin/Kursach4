@@ -1,8 +1,8 @@
 <template>
-	<h1>Букет</h1>
-	<div>
-		<h2>To be added...</h2>
-	</div>
+  <h1>Букет</h1>
+  <div>
+    <h2>To be added...</h2>
+  </div>
 </template>
 <script setup lang="ts">
 import { useRoute } from "vue-router";
@@ -13,6 +13,6 @@ const productsStore = useProductsStore();
 const route = useRoute();
 
 const bunch = computed(() => {
-	return null;
+  return null;
 });
 </script>
