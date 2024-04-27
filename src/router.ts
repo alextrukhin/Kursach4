@@ -5,6 +5,9 @@ import CartPage from "./pages/cart.vue";
 import FlowerPage from "./pages/flower.vue";
 import CatalogPage from "./pages/catalog.vue";
 import BunchPage from "./pages/bunch.vue";
+import AdminPage from "./pages/admin.vue";
+import CheckoutPage from "./pages/checkout.vue";
+import OrderPage from "./pages/order.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +36,21 @@ const router = createRouter({
 			path: "/catalog",
 			name: "catalog",
 			component: CatalogPage,
+		},
+		{
+			path: "/admin/:order?",
+			name: "admin",
+			component: AdminPage,
+		},
+		{
+			path: "/checkout",
+			name: "checkout",
+			component: CheckoutPage,
+		},
+		{
+			path: "/order/:id",
+			name: "order",
+			component: OrderPage,
 		},
 	],
 });

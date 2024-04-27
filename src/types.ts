@@ -7,3 +7,11 @@ export type Product = {
 	seasoning: string;
 	image: string | null;
 };
+
+export type Order = {
+	id: number;
+	products: { productID: number; quantity: number }[];
+	status: string;
+	total: number;
+	createdAt: number;
+};
