@@ -2,9 +2,9 @@
 	<h1>Корзина</h1>
 	<div>
 		<div v-for="elem in cart" :key="elem.productID">
-			<div>
+			<RouterLink :to="`/flower/${elem.productID}`">
 				<img :src="elem.product.image" />
-			</div>
+			</RouterLink>
 			<div>
 				<h2>{{ elem.product.name }}</h2>
 				<p>{{ elem.product.price }}</p>
