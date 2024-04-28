@@ -2,7 +2,8 @@
 defineProps({
   photoUrl: String,
   name: String,
-  price: String,
+  price: Number,
+  quantity: Number,
 });
 </script>
 <template>
@@ -18,7 +19,12 @@ defineProps({
     </div>
     <div class="text-container">
       <div class="product-name">{{ name }}</div>
-      <div class="product-price">{{ "price per 1 - $" + price }}</div>
+      <div class="product-price" v-if="price && quantity">
+        {{ "total price - $" + price * quantity }}
+      </div>
+      <div class="product-price" v-if="quantity">
+        {{ "quantity - " + quantity }}
+      </div>
     </div>
   </div>
 </template>
@@ -26,7 +32,7 @@ defineProps({
 <style scoped>
 .product-card {
   width: 350px;
-  height: 400px;
+  height: 435px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,5 +81,6 @@ defineProps({
   font-weight: 300;
   line-height: normal;
   text-transform: uppercase;
+  margin: 0 auto 5px auto;
 }
 </style>
