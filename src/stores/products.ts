@@ -1,6 +1,6 @@
 import { ref, computed, watch, reactive } from "vue";
 import { defineStore } from "pinia";
-import { Product } from "../types";
+import type { Product } from "../types";
 
 export const useProductsStore = defineStore("products", () => {
 	const productsFetched = ref(false);
