@@ -2,7 +2,7 @@
   <div class="buy-container">
     <h1>Total price of cart - ${{ totalPrice }}</h1>
     <RouterLink :to="`/order`">
-      <div class="buy-button"><h2>BUY</h2></div>
+      <div class="buy-button"><h2>Checkout</h2></div>
     </RouterLink>
   </div>
   <div class="container">
