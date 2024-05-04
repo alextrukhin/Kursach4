@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "name": "Rose",
+        "color": "Red",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/redRose.jpg",
+        "price": 5,
+        "seasoning": "Growing in a greenhouse"
+    },
+    {
+        "id": 2,
+        "name": "Rose",
+        "color": "Pink",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkRose.jpg",
+        "price": 5,
+        "seasoning": "Growing in a greenhouse"
+    },
+    {
+        "id": 3,
+        "name": "Rose",
+        "color": "White",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteRose.jpg",
+        "price": 5,
+        "seasoning": "Growing in a greenhouse"
+    },
+    {
+        "id": 4,
+        "name": "Sunflower",
+        "color": "Yellow",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/sunflower.jpg",
+        "price": 10,
+        "seasoning": "Summer"
+    },
+    {
+        "id": 5,
+        "name": "Tulip",
+        "color": "White",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteTulip.jpg",
+        "price": 3,
+        "seasoning": "Spring"
+    },
+    {
+        "id": 6,
+        "name": "Tulip",
+        "color": "Pink",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkTulip.jpg",
+        "price": 3,
+        "seasoning": "Spring"
+    },
+    {
+        "id": 7,
+        "name": "Tulip",
+        "color": "Red",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/redTulip.jpg",
+        "price": 3,
+        "seasoning": "Spring"
+    },
+    {
+        "id": 8,
+        "name": "Gerbera",
+        "color": "Pink",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkGerbera.jpg",
+        "price": 6,
+        "seasoning": "Growing in a greenhouse"
+    },
+    {
+        "id": 9,
+        "name": "Lily",
+        "color": "White",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteLily.jpg",
+        "price": 9,
+        "seasoning": "Summer"
+    },
+    {
+        "id": 10,
+        "name": "Lily",
+        "color": "Pink",
+        "description": "Flower",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkLily.jpg",
+        "price": 9,
+        "seasoning": "Summer"
+    },
+    {
+        "id": 11,
+        "name": "100 & 1 Roses",
+        "color": "Pink",
+        "description": "Bouquet",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/100&1roses.jpg",
+        "price": 600,
+        "seasoning": "Growing in a greenhouse"
+    },
+    {
+        "id": 12,
+        "name": "Spring bouquet",
+        "color": "Pink",
+        "description": "Bouquet",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/springBouquet.jpg",
+        "price": 300,
+        "seasoning": "Spring"
+    },
+    {
+        "id": 13,
+        "name": "Bouquet of lilies",
+        "color": "Pink",
+        "description": "Bouquet",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfLilies.jpg",
+        "price": 400,
+        "seasoning": "Summer"
+    },
+    {
+        "id": 14,
+        "name": "Bouquet of peonies",
+        "color": "Pink",
+        "description": "Bouquet",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfPeonies.jpg",
+        "price": 350,
+        "seasoning": "Spring"
+    },
+    {
+        "id": 15,
+        "name": "Bouquet of gerberas",
+        "color": "Pink",
+        "description": "Bouquet",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfGerberas.jpg",
+        "price": 450,
+        "seasoning": "Spring"
+    }
+]
