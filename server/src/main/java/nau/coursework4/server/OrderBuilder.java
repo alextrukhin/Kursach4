@@ -7,7 +7,6 @@ public class OrderBuilder {
     private List<OrderProduct> products;
     private List<Bunch> bunches;
     private String status;
-    private double total;
     private long createdAt;
     private long lastStatusChange;
     private String client_firstname;
@@ -21,7 +20,7 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(id, products, bunches, status, total, createdAt, lastStatusChange, client_firstname, client_lastname, client_address, client_phone, client_email, client_comments);
+        return new Order(id, products, bunches, status, createdAt, lastStatusChange, client_firstname, client_lastname, client_address, client_phone, client_email, client_comments);
     }
 
     public OrderBuilder setId(int id) {
@@ -38,10 +37,6 @@ public class OrderBuilder {
     }
     public OrderBuilder setStatus(String status) {
         this.status = status;
-        return this;
-    }
-    public OrderBuilder setTotal(double total) {
-        this.total = total;
         return this;
     }
     public OrderBuilder setCreatedAt(long createdAt) {

@@ -106,7 +106,6 @@ public class CourseworkApplication {
         orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
         orderBuilder.setBunches((List<Bunch>) datamap.get("bunches"));
         orderBuilder.setStatus(datamap.get("status").toString());
-        orderBuilder.setTotal(Double.parseDouble(datamap.get("total").toString()));
         orderBuilder.setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()));
         orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
         orderBuilder.setClient_firstname(datamap.get("client_firstname").toString());

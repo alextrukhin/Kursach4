@@ -4,7 +4,7 @@
         "name": "Rose",
         "color": "Red",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/redRose.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/redRose.jpg",
         "price": 5,
         "seasoning": "Growing in a greenhouse"
     },
@@ -13,7 +13,7 @@
         "name": "Rose",
         "color": "Pink",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkRose.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkRose.jpg",
         "price": 5,
         "seasoning": "Growing in a greenhouse"
     },
@@ -22,7 +22,7 @@
         "name": "Rose",
         "color": "White",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteRose.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/whiteRose.jpg",
         "price": 5,
         "seasoning": "Growing in a greenhouse"
     },
@@ -31,7 +31,7 @@
         "name": "Sunflower",
         "color": "Yellow",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/sunflower.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/sunflower.jpg",
         "price": 10,
         "seasoning": "Summer"
     },
@@ -40,7 +40,7 @@
         "name": "Tulip",
         "color": "White",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteTulip.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/whiteTulip.jpg",
         "price": 3,
         "seasoning": "Spring"
     },
@@ -49,7 +49,7 @@
         "name": "Tulip",
         "color": "Pink",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkTulip.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkTulip.jpg",
         "price": 3,
         "seasoning": "Spring"
     },
@@ -58,7 +58,7 @@
         "name": "Tulip",
         "color": "Red",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/redTulip.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/redTulip.jpg",
         "price": 3,
         "seasoning": "Spring"
     },
@@ -67,7 +67,7 @@
         "name": "Gerbera",
         "color": "Pink",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkGerbera.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkGerbera.jpg",
         "price": 6,
         "seasoning": "Growing in a greenhouse"
     },
@@ -76,7 +76,7 @@
         "name": "Lily",
         "color": "White",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteLily.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/whiteLily.jpg",
         "price": 9,
         "seasoning": "Summer"
     },
@@ -85,7 +85,7 @@
         "name": "Lily",
         "color": "Pink",
         "description": "Flower",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkLily.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkLily.jpg",
         "price": 9,
         "seasoning": "Summer"
     },
@@ -94,7 +94,7 @@
         "name": "100 & 1 Roses",
         "color": "Pink",
         "description": "Bouquet",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/100&1roses.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/100&1roses.jpg",
         "price": 600,
         "seasoning": "Growing in a greenhouse"
     },
@@ -103,7 +103,7 @@
         "name": "Spring bouquet",
         "color": "Pink",
         "description": "Bouquet",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/springBouquet.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/springBouquet.jpg",
         "price": 300,
         "seasoning": "Spring"
     },
@@ -112,7 +112,7 @@
         "name": "Bouquet of lilies",
         "color": "Pink",
         "description": "Bouquet",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfLilies.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfLilies.jpg",
         "price": 400,
         "seasoning": "Summer"
     },
@@ -121,7 +121,7 @@
         "name": "Bouquet of peonies",
         "color": "Pink",
         "description": "Bouquet",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfPeonies.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfPeonies.jpg",
         "price": 350,
         "seasoning": "Spring"
     },
@@ -130,7 +130,7 @@
         "name": "Bouquet of gerberas",
         "color": "Pink",
         "description": "Bouquet",
-        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfGerberas.jpg",
+        "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfGerberas.jpg",
         "price": 450,
         "seasoning": "Spring"
     }

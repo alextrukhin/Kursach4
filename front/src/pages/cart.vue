@@ -6,48 +6,97 @@
 		</RouterLink>
 	</div>
 	<div class="container">
-		<div v-for="elem in cart" :key="elem.productID">
+		<h2>Flowers</h2>
+		<div v-for="elem in products" :key="elem.productID">
 			<RouterLink :to="`/flower/${elem.productID}`">
 				<CartCard
-					:photoUrl="elem.product.image || ''"
-					:name="elem.product.name"
-					:price="elem.product.price"
+					:photoUrl="elem.product?.image || ''"
+					:name="elem.product?.name"
+					:price="elem.product?.price"
 					:quantity="elem.quantity"
 				/>
 			</RouterLink>
 		</div>
+		<h2>Bunches</h2>
+		<div v-for="(elem, index) in bunches" :key="index">
+			<BunchCard
+				:bunch="elem"
+				@delete="deleteBunch(index)"
+				@edit="editBunch(index)"
+			/>
+		</div>
+		<button @click="createBunch">New bunch</button>
 	</div>
+	<BunchEditModal
+		v-if="!!bunchToEdit"
+		:bunch="bunchToEdit"
+		@update="updateBunch"
+	/>
+	{{ bunchToEdit }}
 </template>
 <script setup lang="ts">
 import { useProductsStore } from "../stores/products";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import CartCard from "../components/CartCard.vue";
+import BunchCard from "@/components/BunchCard.vue";
+import BunchEditModal from "@/components/BunchEditModal.vue";
+import { Bunch } from "@/types";
+
 const productsStore = useProductsStore();
 
-const cart = computed(() =>
-	productsStore.carted.content.map((cartElem) => {
+const bunchToEditIndex = ref<number | null>(null);
+const bunchToEdit = ref<Bunch | null>(null);
+
+const products = computed(() =>
+	productsStore.carted.content.products.map((cartElem) => {
 		return {
 			...cartElem,
 			product: productsStore.products.find(
 				(product) => product.id === cartElem.productID
-			)!,
+			),
 		};
 	})
 );
 const totalPrice = computed(() => {
-	return cart.value.reduce(
-		(sum, item) => sum + item.product.price * item.quantity,
+	return products.value.reduce(
+		(sum, item) => sum + (item.product?.price ?? 0) * item.quantity,
 		0
 	);
 });
-productsStore.carted.content.map((cartElem) => {
-	return {
-		...cartElem,
-		product: productsStore.products.find(
-			(product) => product.id === cartElem.productID
-		)!,
-	};
-});
+const bunches = computed(() =>
+	productsStore.carted.content.bunches.map((bunch) => {
+		return {
+			...bunch,
+			products:
+				bunch.products?.map((product) => {
+					return {
+						...product,
+						product: productsStore.products.find(
+							(p) => p.id === product.id
+						),
+					};
+				}) ?? null,
+		};
+	})
+);
+
+const createBunch = () => {
+	productsStore.carted.content.bunches.push({
+		id: null,
+		products: [],
+	});
+};
+const deleteBunch = (index: number) => {
+	productsStore.carted.content.bunches.splice(index, 1);
+};
+const editBunch = (index: number) => {
+	bunchToEditIndex.value = index;
+	bunchToEdit.value = productsStore.carted.content.bunches[index];
+};
+const updateBunch = (bunch: Bunch) => {
+	productsStore.carted.content.bunches[bunchToEditIndex] = bunch;
+	bunchToEdit.value = null;
+};
 </script>
 <style scoped>
 .buy-container {
@@ -59,8 +108,7 @@ productsStore.carted.content.map((cartElem) => {
 }
 .container {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
+	flex-direction: column;
 	width: 1200px;
 	margin: 0 auto;
 	row-gap: 40px;

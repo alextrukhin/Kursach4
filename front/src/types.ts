@@ -18,7 +18,6 @@ export type Order = {
 	products: { productID: number; quantity: number }[];
 	bunches: Array<{ bunch: Bunch; quantity: number }>;
 	status: string;
-	total: number;
 	createdAt: number;
 	lastStatusChange: number;
 

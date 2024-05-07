@@ -1,15 +1,21 @@
 import { ref, computed, watch, reactive } from "vue";
 import { defineStore } from "pinia";
-import type { Product } from "../types";
+import type { Bunch, Product } from "../types";
 
 export const useProductsStore = defineStore("products", () => {
 	const productsFetched = ref(false);
 	const products = ref<Product[]>([]);
 	const carted = reactive<{
-		content: { productID: number; quantity: number }[];
+		content: {
+			products: { productID: number; quantity: number }[];
+			bunches: Bunch[];
+		};
 		lastChange: number;
 	}>({
-		content: [],
+		content: {
+			products: [],
+			bunches: [],
+		},
 		lastChange: -1,
 	});
 	watch(carted, handleCartChange);
@@ -182,7 +188,7 @@ export const useProductsStore = defineStore("products", () => {
 
 	const cartedProducts = computed(() => {
 		let toReturn: Array<Product & { quantity: number }> = [];
-		carted.content.map((el) => ({
+		carted.content.products.map((el) => ({
 			...products.value.find((prod) => prod.id == el.productID)!,
 			quantity: el.quantity,
 		}));
@@ -195,9 +201,11 @@ export const useProductsStore = defineStore("products", () => {
 		}
 		return {
 			...product,
-			carted: carted.content.some((el) => el.productID == productID),
+			carted: carted.content.products.some(
+				(el) => el.productID == productID
+			),
 			quantity:
-				carted.content.find((el) => el.productID == productID)
+				carted.content.products.find((el) => el.productID == productID)
 					?.quantity || 0,
 		};
 	}
@@ -206,8 +214,9 @@ export const useProductsStore = defineStore("products", () => {
 	}
 	async function cartProduct(productID: number) {
 		console.log("cartProduct", productID);
-		if (carted.content.some((el) => el.productID == productID)) return;
-		carted.content.push({
+		if (carted.content.products.some((el) => el.productID == productID))
+			return;
+		carted.content.products.push({
 			productID: productID,
 			quantity: 1,
 		});
@@ -215,11 +224,12 @@ export const useProductsStore = defineStore("products", () => {
 	}
 	async function uncartProduct(productID: number) {
 		console.log("uncartProduct", productID);
-		if (!carted.content.some((el) => el.productID == productID)) return;
-		let indexOfThisProduct = carted.content.findIndex(
+		if (!carted.content.products.some((el) => el.productID == productID))
+			return;
+		let indexOfThisProduct = carted.content.products.findIndex(
 			(el) => el.productID == productID
 		);
-		carted.content.splice(indexOfThisProduct, 1);
+		carted.content.products.splice(indexOfThisProduct, 1);
 		carted.lastChange = Math.floor(new Date().valueOf() / 1000);
 	}
 	async function cartChangeProductQuantity(
@@ -227,7 +237,7 @@ export const useProductsStore = defineStore("products", () => {
 		quantity: number
 	) {
 		console.log("cartChangeProductQuantity", productID);
-		let targetElement = carted.content.find(
+		let targetElement = carted.content.products.find(
 			(el) => el.productID == productID
 		);
 		if (!targetElement) return;

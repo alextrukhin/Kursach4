@@ -7,7 +7,6 @@ public class Order {
     private List<OrderProduct> products;
     private List<Bunch> bunches;
     private String status;
-    private double total;
     private long createdAt;
     private long lastStatusChange;
     private String client_firstname;
@@ -20,12 +19,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, List<OrderProduct> products, List<Bunch> bunches, String status, double total, long createdAt, long lastStatusChange, String client_firstname, String client_lastname, String client_address, String client_phone, String client_email, String client_comments) {
+    public Order(int id, List<OrderProduct> products, List<Bunch> bunches, String status, long createdAt, long lastStatusChange, String client_firstname, String client_lastname, String client_address, String client_phone, String client_email, String client_comments) {
         this.id = id;
         this.products = products;
         this.bunches = bunches;
         this.status = status;
-        this.total = total;
         this.createdAt = createdAt;
         this.lastStatusChange = lastStatusChange;
         this.client_firstname = client_firstname;
@@ -50,10 +48,6 @@ public class Order {
 
     public String getStatus() {
         return status;
-    }
-
-    public double getTotal() {
-        return total;
     }
 
     public long getCreatedAt() {

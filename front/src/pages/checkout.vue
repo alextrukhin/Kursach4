@@ -7,6 +7,7 @@
 					<input
 						v-model="formState.client_firstname"
 						placeholder="First name"
+						autocomplete="given-name"
 					/>
 					<div
 						class="error"
@@ -19,6 +20,7 @@
 					<input
 						v-model="formState.client_lastname"
 						placeholder="Last name"
+						autocomplete="family-name"
 					/>
 					<div
 						class="error"
@@ -32,6 +34,7 @@
 						v-model="formState.client_address"
 						type="text"
 						placeholder="Address"
+						autocomplete="shipping street-address"
 					/>
 					<div
 						class="error"
@@ -45,6 +48,7 @@
 						v-model="formState.client_phone"
 						type="tel"
 						placeholder="Phone"
+						autocomplete="tel"
 					/>
 					<div
 						class="error"
@@ -58,6 +62,7 @@
 						v-model="formState.client_email"
 						type="email"
 						placeholder="Email"
+						autocomplete="email"
 					/>
 					<div
 						class="error"
@@ -84,6 +89,15 @@
 					<h1>Total price of cart - ${{ totalPrice }}</h1>
 				</div>
 				<div class="container">
+					<h2>Bunches</h2>
+					<div
+						v-for="(bunch, index) in bunches"
+						:key="index"
+						class="product-card"
+					>
+						<BunchCard :bunch="bunch" />
+					</div>
+					<h2>Products in cart</h2>
 					<div
 						v-for="product in products"
 						:key="product.productID"
@@ -109,8 +123,11 @@ import { computed, reactive, ref } from "vue";
 import { useProductsStore } from "../stores/products";
 import { Order } from "@/types";
 import { z } from "zod";
+import { useOrdersStore } from "@/stores/orders";
+import BunchCard from "@/components/BunchCard.vue";
 
 const productsStore = useProductsStore();
+const ordersStore = useOrdersStore();
 
 const formSchema = z.object({
 	client_firstname: z.string().min(1),
@@ -136,11 +153,23 @@ const errors = computed(
 	() => formSchema.safeParse(formState).error?.flatten().fieldErrors ?? {}
 );
 const products = computed(() =>
-	productsStore.carted.content.map((cartElem) => ({
+	productsStore.carted.content.products.map((cartElem) => ({
 		...cartElem,
 		product: productsStore.products.find(
 			(product) => product.id === cartElem.productID
 		),
+	}))
+);
+const bunches = computed(() =>
+	productsStore.carted.content.bunches.map((bunch) => ({
+		...bunch,
+		products:
+			bunch.products?.map((product) => ({
+				...product,
+				product: productsStore.products.find(
+					(p) => p.id === product.id
+				),
+			})) ?? null,
 	}))
 );
 const totalPrice = computed(() => {
@@ -149,27 +178,32 @@ const totalPrice = computed(() => {
 		0
 	);
 });
-productsStore.carted.content.map((cartElem) => {
-	return {
-		...cartElem,
-		product: productsStore.products.find(
-			(product) => product.id === cartElem.productID
-		)!,
-	};
-});
+productsStore.carted.content.products.map((cartElem) => ({
+	...cartElem,
+	product: productsStore.products.find(
+		(product) => product.id === cartElem.productID
+	)!,
+}));
 
-const submit = () => {
+const submit = async () => {
 	triedToSubmit.value = true;
 	if (Object.keys(errors.value).length) return;
 	const order: Order = {
+		id: 0,
 		products: products.value.map((product) => ({
 			productID: product.product!.id,
 			quantity: product.quantity,
 		})),
 		bunches: [],
+		status: "created",
+		createdAt: new Date().valueOf(),
+		lastStatusChange: new Date().valueOf(),
 		...formState,
 	};
 	console.log("submit", order);
+	await ordersStore.placeOrder(order);
+	productsStore.carted.content.products = [];
+	productsStore.carted.content.bunches = [];
 };
 </script>
 <style scoped>

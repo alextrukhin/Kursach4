@@ -6,12 +6,15 @@ export const useOrdersStore = defineStore("orders", () => {
 	const ordersFetched = ref(false);
 	const orders = ref<Order[]>([]);
 
-	async function init() {
-		// fetch orders here
+	async function fetchOrders() {
 		const fetchedOrders = await (
-			await fetch(`http://localhost:8080/bunches`)
+			await fetch(`http://localhost:8080/orders`)
 		).json();
 		orders.value = fetchedOrders;
+	}
+
+	async function init() {
+		await fetchOrders();
 		// orders.value = [
 		// 	{
 		// 		id: 1,
@@ -63,10 +66,22 @@ export const useOrdersStore = defineStore("orders", () => {
 		// await fetch(`http://localhost:8080/bunches`, {});
 	}
 
+	async function placeOrder(order: Order) {
+		await fetch(`http://localhost:8080/addOrder`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(order),
+		});
+		await fetchOrders();
+	}
+
 	return {
 		init,
 		orders,
 		ordersFetched,
 		updateOrder,
+		placeOrder,
 	};
 });
