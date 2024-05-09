@@ -8,6 +8,7 @@ public class FlowerBuilder {
     private double price;
     private String seasoning;
     private String image;
+    private String image_single;
 
     public FlowerBuilder setId(int id) {
         this.id = id;
@@ -44,7 +45,12 @@ public class FlowerBuilder {
         return this;
     }
 
+    public FlowerBuilder setImageSingle(String image_single) {
+        this.image_single = image_single;
+        return this;
+    }
+
     public Flower build() {
-        return new Flower(id, name, color, description, price, seasoning, image);
+        return new Flower(id, name, color, description, price, seasoning, image, image_single);
     }
 }

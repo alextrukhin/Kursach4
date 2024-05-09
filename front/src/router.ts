@@ -5,7 +5,7 @@ import CartPage from "./pages/cart.vue";
 import FlowerPage from "./pages/flower.vue";
 import CatalogPage from "./pages/catalog.vue";
 import BunchPage from "./pages/bunch.vue";
-import AdminPage from "./pages/admin.vue";
+import AdminOrdersPage from "./pages/admin/orders.vue";
 import CheckoutPage from "./pages/checkout.vue";
 import OrderPage from "./pages/order.vue";
 
@@ -38,9 +38,9 @@ const router = createRouter({
 			component: CatalogPage,
 		},
 		{
-			path: "/admin/:order?",
-			name: "admin",
-			component: AdminPage,
+			path: "/admin/orders/:order?",
+			name: "orders",
+			component: AdminOrdersPage,
 		},
 		{
 			path: "/checkout",

@@ -10,10 +10,11 @@ public class Flower {
     private double price;
     private String seasoning;
     private String image;
+    private String image_single;
 
     public Flower() {
     }
-    public Flower(int id, String name, String color, String description, double price, String seasoning, String image) {
+    public Flower(int id, String name, String color, String description, double price, String seasoning, String image, String image_single) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -53,6 +54,10 @@ public class Flower {
 
     @SerializedName("image")
     public String getImage() {
+        return image;
+    }
+    @SerializedName("image_single")
+    public String getImageSingle() {
         return image;
     }
 }

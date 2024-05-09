@@ -1,3 +1,6 @@
+export type PaymentType = "cash" | "card";
+export type DeliveryType = "postman" | "pickup" | "delivery";
+
 export type Product = {
 	id: number;
 	name: string;
@@ -6,6 +9,7 @@ export type Product = {
 	price: number;
 	seasoning: string;
 	image: string | null;
+	image_single: string | null;
 };
 
 export type Bunch = {
@@ -27,4 +31,7 @@ export type Order = {
 	client_phone: string;
 	client_email: string;
 	client_comments: string;
+
+	payment_method: PaymentType;
+	delivery_method: DeliveryType;
 };

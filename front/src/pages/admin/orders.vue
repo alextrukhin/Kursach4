@@ -9,7 +9,7 @@
 						:key="order.id"
 						:class="{ active: order.id === orderId }"
 					>
-						<RouterLink :to="`/admin/${order.id}`">
+						<RouterLink :to="`/admin/orders/${order.id}`">
 							<div class="left">
 								<p>#{{ order.id }}</p>
 							</div>
@@ -27,11 +27,55 @@
 				</ul>
 			</div>
 			<div id="second-half">
-				<div id="product" v-if="order">
+				<form id="product" v-if="order">
 					<h2>Order #{{ order.id }}</h2>
-					<p>{{ order.status }}</p>
-					<p>{{ order.total }}</p>
-				</div>
+					<div>
+						<label for="client_firstname">First name</label>
+						<input
+							id="client_firstname"
+							type="text"
+							v-model="order.client_firstname"
+							placeholder="First name"
+						/>
+					</div>
+					<div>
+						<label for="client_lastname">Last name</label>
+						<input
+							id="client_lastname"
+							type="text"
+							v-model="order.client_lastname"
+							placeholder="Last name"
+						/>
+					</div>
+					<div>
+						<label for="client_address">Address</label>
+						<input
+							id="client_address"
+							type="text"
+							v-model="order.client_address"
+							placeholder="Address"
+						/>
+					</div>
+					<div>
+						<label for="client_phone">Phone</label>
+						<input
+							id="client_phone"
+							type="tel"
+							v-model="order.client_phone"
+							placeholder="Phone"
+						/>
+					</div>
+					<div>
+						<label for="client_email">Email</label>
+						<input
+							id="client_email"
+							type="email"
+							v-model="order.client_email"
+							placeholder="Email"
+						/>
+					</div>
+					<button type="submit">Update</button>
+				</form>
 				<div v-else>order not selected</div>
 			</div>
 		</div>
@@ -39,9 +83,9 @@
 </template>
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { useOrdersStore } from "../stores/orders";
+import { useOrdersStore } from "../../stores/orders";
 import { useRoute } from "vue-router";
-import type { Order } from "../types";
+import type { Order } from "../../types";
 
 const ordersStore = useOrdersStore();
 const route = useRoute();
@@ -113,5 +157,10 @@ li .center {
 	padding: 10px;
 	flex-grow: 1;
 	padding-left: 24px;
+}
+#product {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 </style>

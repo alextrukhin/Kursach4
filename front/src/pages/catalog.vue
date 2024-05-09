@@ -7,27 +7,10 @@
 			<div class="color yellow"></div>
 		</div>
 		<div class="">
-			<!-- <div class="seasonal-filter">
-        <h2>seasonal flowers</h2>
-      </div>
-      <div class="filter-btn">
-        <img style="height: 40px; margin: auto" src="../../Filter.svg" />
-      </div> -->
-			<!-- <VSelect
-        :options="seasonOptions"
-        :reduce="(option: (typeof seasonOptions)[number]) => option.title"
-        label="title"
-        placeholder="Season"
-      >
-        <template v-slot:option="option">
-          <span>{{ option.icon }}</span>
-          {{ option.title }}
-        </template>
-      </VSelect> -->
-			<select>
-				<option value="" disabled>Season</option>
-				<option v-for="option in seasonOptions" :value="option.title">
-					{{ option.icon }} {{ option.title }}
+			<select v-model="season">
+				<option value="">All seasons</option>
+				<option v-for="option in seasonOptions" :value="option.value">
+					{{ option.label }}
 				</option>
 			</select>
 		</div>
@@ -58,10 +41,10 @@ import CatalogCard from "../components/CatalogCard.vue";
 import { computed, ref } from "vue";
 const productsStore = useProductsStore();
 
-const icons: Record<string, string> = {
-	Summer: "🌞",
-	Spring: "🌸",
-	"Growing in a greenhouse": "🏡",
+const labels: Record<string, string> = {
+	summer: "🌞 Summer",
+	spring: "🌸 Spring",
+	greenhouse: "🏡 Growing in greenhouse",
 };
 
 const season = ref("");
@@ -72,8 +55,8 @@ const seasonOptions = computed(() =>
 	Array.from(
 		new Set(productsStore.products.map((product) => product.seasoning))
 	).map((season) => ({
-		title: season,
-		icon: icons[season] ?? null,
+		value: season,
+		label: labels[season] ?? null,
 	}))
 );
 const filteredProducts = computed(() => {
