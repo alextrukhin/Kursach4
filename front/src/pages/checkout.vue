@@ -95,7 +95,7 @@
 						:key="index"
 						class="product-card"
 					>
-						<BunchCard :bunch="bunch" />
+						<BunchCard :bunch="bunch" :controls="false" />
 					</div>
 					<h2>Products in cart</h2>
 					<div
