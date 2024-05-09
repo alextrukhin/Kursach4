@@ -31,6 +31,7 @@
 		v-if="!!bunchToEdit"
 		:bunch="bunchToEdit"
 		@update="updateBunch"
+		@close="bunchToEdit = null"
 	/>
 	{{ bunchToEdit }}
 </template>

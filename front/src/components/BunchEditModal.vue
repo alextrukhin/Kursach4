@@ -8,12 +8,18 @@
 				/>
 			</div>
 			<div class="bunch-edit-modal__right">
-				<div
-					v-for="product in productsStore.products"
-					@click="addProduct(product)"
-				>
-					<div>{{ product.name }}</div>
-					<div>{{ product.price }}</div>
+				<div><button @click="emit('close')">Close</button></div>
+				<div>
+					<h3>Products</h3>
+					<div
+						v-for="product in productsStore.products"
+						@click="addProduct(product)"
+						class="product-row"
+					>
+						<img :src="product.image" />
+						<div style="flex-grow: 1">{{ product.name }}</div>
+						<div>{{ product.price }}</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -38,7 +44,6 @@ const props = defineProps({
 });
 const emit = defineEmits<{
 	(event: "close"): void;
-	(event: "update", bunch: Bunch): void;
 }>();
 
 const bunchLocal = ref(props.bunch);
@@ -49,7 +54,6 @@ const addProduct = (product: Product) => {
 
 const updateProducts = (products: Bunch["products"]) => {
 	bunchLocal.value.products = products;
-	// emit("update", bunchLocal.value);
 };
 const updateProductsDebounced = debounce(updateProducts, 200);
 
@@ -62,6 +66,8 @@ watch(
 </script>
 <style scoped>
 .bunch-edit-modal {
+	width: 800px;
+	height: 800px;
 	display: flex;
 	flex-direction: row;
 	gap: 12px;
@@ -69,10 +75,24 @@ watch(
 	padding: 20px;
 	border-radius: 20px;
 	color: black;
+	overflow: hidden;
 }
 .bunch-edit-modal__left {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.product-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-top: 8px;
+}
+.product-row img {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
 }
 </style>

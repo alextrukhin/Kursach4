@@ -194,7 +194,10 @@ const submit = async () => {
 			productID: product.product!.id,
 			quantity: product.quantity,
 		})),
-		bunches: [],
+		bunches: productsStore.carted.content.bunches.map((bunch) => ({
+			bunch,
+			quantity: 1,
+		})),
 		status: "created",
 		createdAt: new Date().valueOf(),
 		lastStatusChange: new Date().valueOf(),
