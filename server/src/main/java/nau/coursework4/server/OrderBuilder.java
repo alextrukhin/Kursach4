@@ -15,12 +15,44 @@ public class OrderBuilder {
     private String client_phone;
     private String client_email;
     private String client_comments;
+    private Order.PaymentType payment_type;
+    private Order.DeliveryType delivery_type;
 
     public OrderBuilder() {
     }
 
+    public OrderBuilder(Order order) {
+        this.id = order.getId();
+        this.products = order.getProducts();
+        this.bunches = order.getBunches();
+        this.status = order.getStatus();
+        this.createdAt = order.getCreatedAt();
+        this.lastStatusChange = order.getLastStatusChange();
+        this.client_firstname = order.getClient_firstname();
+        this.client_lastname = order.getClient_lastname();
+        this.client_address = order.getClient_address();
+        this.client_phone = order.getClient_phone();
+        this.client_email = order.getClient_email();
+        this.client_comments = order.getClient_comments();
+        this.payment_type = order.getPayment_type();
+        this.delivery_type = order.getDelivery_type();
+    }
+
     public Order build() {
-        return new Order(id, products, bunches, status, createdAt, lastStatusChange, client_firstname, client_lastname, client_address, client_phone, client_email, client_comments);
+        return new Order(id,
+                products,
+                bunches,
+                status,
+                createdAt,
+                lastStatusChange,
+                client_firstname,
+                client_lastname,
+                client_address,
+                client_phone,
+                client_email,
+                client_comments,
+                payment_type,
+                delivery_type);
     }
 
     public OrderBuilder setId(int id) {
@@ -69,6 +101,14 @@ public class OrderBuilder {
     }
     public OrderBuilder setClient_comments(String client_comments) {
         this.client_comments = client_comments;
+        return this;
+    }
+    public OrderBuilder setPayment_type(Order.PaymentType payment_type) {
+        this.payment_type = payment_type;
+        return this;
+    }
+    public OrderBuilder setDelivery_type(Order.DeliveryType delivery_type) {
+        this.delivery_type = delivery_type;
         return this;
     }
 }

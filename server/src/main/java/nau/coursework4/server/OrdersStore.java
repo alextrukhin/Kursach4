@@ -19,6 +19,14 @@ public class OrdersStore {
     public List<Order> getOrders() {
         return data;
     }
+    public Order getOrderById(Integer id) {
+        for (Order product : data) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
     public void addOrder(Order product) {
         data.add(product);
         saveListToFile(data, "orders.json");

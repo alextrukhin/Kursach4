@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static nau.coursework4.server.Sendgrid.sendEmail;
+
 @RestController
 public class CourseworkApplication {
     private final FlowersStore flowersStore = FlowersStoreSingleton.getInstance();
@@ -115,9 +117,66 @@ public class CourseworkApplication {
         orderBuilder.setClient_email(datamap.get("client_email").toString());
         orderBuilder.setClient_comments(datamap.get("client_comments").toString());
 
-        Order order = orderBuilder.build();
+        ordersStore.addOrder(orderBuilder.build());
+        return new ResponseEntity<Object>(HttpStatus.OK);
+    }
 
-        ordersStore.addOrder(order);
+    @PatchMapping(path = "/updateOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<Object> updateOrder(@RequestBody Map<String, Object> datamap) {
+        int id = Integer.parseInt(datamap.get("id").toString());
+        Order order = ordersStore.getOrderById(id);
+        if (order == null) {
+            return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+        }
+        OrderBuilder orderBuilder = new OrderBuilder(order);
+
+        if(datamap.get("products") != null)
+            orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
+        if(datamap.get("bunches") != null)
+            orderBuilder.setBunches((List<Bunch>) datamap.get("bunches"));
+        if(datamap.get("status") != null)
+            orderBuilder.setStatus(datamap.get("status").toString());
+        if(datamap.get("createdAt") != null)
+            orderBuilder.setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()));
+        if(datamap.get("lastStatusChange") != null)
+            orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
+        if(datamap.get("client_firstname") != null)
+            orderBuilder.setClient_firstname(datamap.get("client_firstname").toString());
+        if(datamap.get("client_lastname") != null)
+            orderBuilder.setClient_lastname(datamap.get("client_lastname").toString());
+        if(datamap.get("client_address") != null)
+            orderBuilder.setClient_address(datamap.get("client_address").toString());
+        if(datamap.get("client_phone") != null)
+            orderBuilder.setClient_phone(datamap.get("client_phone").toString());
+        if(datamap.get("client_email") != null)
+            orderBuilder.setClient_email(datamap.get("client_email").toString());
+        if(datamap.get("client_comments") != null)
+            orderBuilder.setClient_comments(datamap.get("client_comments").toString());
+        if(datamap.get("payment_type") != null)
+            orderBuilder.setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()));
+        if(datamap.get("delivery_type") != null)
+            orderBuilder.setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
+
+        return new ResponseEntity<Object>(HttpStatus.OK);
+    }
+    @PostMapping(path = "/updateOrderStatus", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<Object> updateOrderStatus(@RequestBody Map<String, Object> datamap) {
+        int id = Integer.parseInt(datamap.get("id").toString());
+        Order order = ordersStore.getOrderById(id);
+        OrderBuilder orderBuilder = new OrderBuilder(order);
+
+        orderBuilder.setStatus(datamap.get("status").toString());
+        orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
+
+//        try {
+//            sendEmail("trykhin2004@gmail.com", "Order status changed", "Order status changed to " + datamap.get("status").toString());
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+
+        ordersStore.updateOrder(orderBuilder.build());
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 }

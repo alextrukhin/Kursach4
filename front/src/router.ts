@@ -5,6 +5,9 @@ import CartPage from "./pages/cart.vue";
 import FlowerPage from "./pages/flower.vue";
 import CatalogPage from "./pages/catalog.vue";
 import BunchPage from "./pages/bunch.vue";
+import AdminPage from "./pages/admin/index.vue";
+import AdminProductsPage from "./pages/admin/products.vue";
+import AdminBunchesPage from "./pages/admin/bunches.vue";
 import AdminOrdersPage from "./pages/admin/orders.vue";
 import CheckoutPage from "./pages/checkout.vue";
 import OrderPage from "./pages/order.vue";
@@ -38,8 +41,23 @@ const router = createRouter({
 			component: CatalogPage,
 		},
 		{
+			path: "/admin",
+			name: "admin",
+			component: AdminPage,
+		},
+		{
+			path: "/admin/products/:product?",
+			name: "admin-products",
+			component: AdminProductsPage,
+		},
+		{
+			path: "/admin/bunches/:bunch?",
+			name: "admin-bunches",
+			component: AdminBunchesPage,
+		},
+		{
 			path: "/admin/orders/:order?",
-			name: "orders",
+			name: "admin-orders",
 			component: AdminOrdersPage,
 		},
 		{

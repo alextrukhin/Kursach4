@@ -1,10 +1,31 @@
 <template>
 	<div class="buttons-container">
 		<div class="container">
-			<div class="color red"></div>
-			<div class="color pink"></div>
-			<div class="color orange"></div>
-			<div class="color yellow"></div>
+			<div
+				v-for="colorsOption in colorsOptions"
+				:key="colorsOption.value"
+				class="color"
+				:style="{ 'background-color': colorsOption.label }"
+				@click="
+					color =
+						color === colorsOption.value ? null : colorsOption.value
+				"
+			>
+				<svg
+					v-if="colorsOption.value === color"
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M20 6 9 17l-5-5" />
+				</svg>
+			</div>
 		</div>
 		<div class="">
 			<select v-model="season">
@@ -19,7 +40,7 @@
 			<img class="search-icon" src="../../SearchPicture.svg" />
 		</div>
 	</div>
-	<div class="products-container">
+	<div v-if="filteredProducts.length" class="products-container">
 		<div
 			v-for="product in filteredProducts"
 			:key="product.id"
@@ -34,6 +55,9 @@
 			</RouterLink>
 		</div>
 	</div>
+	<div v-else>
+		<h2>No products found</h2>
+	</div>
 </template>
 <script setup lang="ts">
 import { useProductsStore } from "../stores/products";
@@ -46,9 +70,15 @@ const labels: Record<string, string> = {
 	spring: "🌸 Spring",
 	greenhouse: "🏡 Growing in greenhouse",
 };
+const colors: Record<string, string> = {
+	Red: "#ef6363",
+	Pink: "#fd84be",
+	Orange: "#ffad80",
+	Yellow: "#ffe380",
+};
 
-const season = ref("");
-const color = ref("");
+const season = ref<string | null>("");
+const color = ref<string | null>("");
 const search = ref("");
 
 const seasonOptions = computed(() =>
@@ -57,6 +87,14 @@ const seasonOptions = computed(() =>
 	).map((season) => ({
 		value: season,
 		label: labels[season] ?? null,
+	}))
+);
+const colorsOptions = computed(() =>
+	Array.from(
+		new Set(productsStore.products.map((product) => product.color))
+	).map((color) => ({
+		value: color,
+		label: colors[color],
 	}))
 );
 const filteredProducts = computed(() => {
@@ -87,23 +125,14 @@ const filteredProducts = computed(() => {
 .color {
 	width: 70px;
 	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border-radius: 35px;
 }
 .color:hover {
 	box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
 	cursor: pointer;
-}
-.red {
-	background-color: #ef6363;
-}
-.pink {
-	background-color: #fd84be;
-}
-.orange {
-	background-color: #ffad80;
-}
-.yellow {
-	background-color: #ffe380;
 }
 .filter-btn {
 	width: 70px;
