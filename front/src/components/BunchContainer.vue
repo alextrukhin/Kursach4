@@ -1,8 +1,13 @@
 <template>
-	<div ref="listEl" class="bunch-container">
+	<div
+		ref="listEl"
+		:key="products?.length"
+		class="bunch-container"
+		:style="{ width: `${size}px`, height: `${size}px` }"
+	>
 		<VueDragResize
 			v-for="(product, index) in products"
-			:key="index"
+			:key="`${product}_${index}`"
 			:w="50"
 			:h="50"
 			:x="product.x"
@@ -18,7 +23,7 @@
 			:aspectRatio="true"
 			:z="10"
 			contentClass="bunch-container__flower"
-			v-on:dragging="changePosition($event, index)"
+			@dragstop="applyPosition($event, index)"
 		>
 			<div class="product-card">
 				<img
@@ -39,6 +44,10 @@ const productsStore = useProductsStore();
 
 const props = defineProps({
 	products: Array as PropType<Bunch["products"]>,
+	size: {
+		type: Number,
+		default: 400,
+	},
 });
 const emit = defineEmits<{
 	(event: "update", products: Bunch["products"] | null): void;
@@ -48,17 +57,29 @@ const listEl = ref();
 const listWidth = ref(0);
 const listHeight = ref(0);
 
-const products = computed(() => {
-	return props.products?.map((product) => ({
+const products = computed(() =>
+	props.products?.map((product) => ({
 		...product,
 		product: productsStore.products.find((p) => p.id === product.id),
-	}));
-});
+	}))
+);
 
-const changePosition = (
+const applyPosition = (
 	e: { left: number; top: number; width: number; height: number },
 	index: number
 ) => {
+	if (
+		(e.left === 0 && e.top === 0) ||
+		(e.left === 400 - e.width - 2 && e.top === 400 - e.height - 2) ||
+		(e.left === 0 && e.top === 400 - e.height - 2) ||
+		(e.left === 400 - e.width - 2 && e.top === 0)
+	) {
+		// Remove product if it's in the corners
+
+		emit("update", products.value?.filter((_, i) => i !== index) ?? null);
+		return;
+	}
+
 	emit(
 		"update",
 		products.value?.map((product, i) => {
@@ -73,10 +94,12 @@ const changePosition = (
 		}) ?? null
 	);
 };
+
 const resizeListener = () => {
 	listWidth.value = listEl.value.clientWidth;
 	listHeight.value = listEl.value.clientHeight;
 };
+
 onMounted(() => {
 	resizeListener();
 	window.addEventListener("resize", resizeListener);
@@ -87,8 +110,6 @@ onUnmounted(() => {
 </script>
 <style scoped>
 .bunch-container {
-	width: 400px;
-	height: 400px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;

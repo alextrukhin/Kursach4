@@ -5,8 +5,8 @@
 			<div class="buy-button"><h2>Checkout</h2></div>
 		</RouterLink>
 	</div>
+	<h2>Flowers</h2>
 	<div class="container">
-		<h2>Flowers</h2>
 		<div v-for="elem in products" :key="elem.productId">
 			<RouterLink :to="`/flower/${elem.productId}`">
 				<CartCard
@@ -17,7 +17,9 @@
 				/>
 			</RouterLink>
 		</div>
-		<h2>Bunches</h2>
+	</div>
+	<h2>Bunches</h2>
+	<div class="container">
 		<div v-for="(elem, index) in bunches" :key="index">
 			<BunchCard
 				:bunch="elem"
@@ -103,7 +105,8 @@ const updateBunch = (bunch: Bunch) => {
 }
 .container {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-wrap: wrap;
 	width: 1200px;
 	margin: 0 auto;
 	row-gap: 40px;

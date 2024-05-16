@@ -6,19 +6,20 @@
 					:products="bunchLocal.products"
 					@update="updateProductsDebounced"
 				/>
+				<span>Drag in corner to delete</span>
 			</div>
 			<div class="bunch-edit-modal__right">
 				<div><button @click="emit('close')">Close</button></div>
 				<div>
 					<h3>Products</h3>
 					<div
-						v-for="product in productsStore.products"
+						v-for="product in flowers"
 						@click="addProduct(product)"
 						class="product-row"
 					>
 						<img :src="product.image" />
 						<div style="flex-grow: 1">{{ product.name }}</div>
-						<div>{{ product.price }}</div>
+						<div>${{ product.price }}</div>
 					</div>
 				</div>
 			</div>
@@ -26,7 +27,7 @@
 	</BaseModal>
 </template>
 <script setup lang="ts">
-import { type PropType, ref, watch } from "vue";
+import { type PropType, ref, watch, computed } from "vue";
 import BaseModal from "./BaseModal.vue";
 import BunchContainer from "./BunchContainer.vue";
 import { debounce } from "perfect-debounce";
@@ -47,6 +48,10 @@ const emit = defineEmits<{
 }>();
 
 const bunchLocal = ref(props.bunch);
+
+const flowers = computed(() =>
+	productsStore.products.filter((product) => product.type === "Flower")
+);
 
 const addProduct = (product: Product) => {
 	console.log(product);
@@ -80,8 +85,12 @@ watch(
 }
 .bunch-edit-modal__left {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+.bunch-edit-modal__right {
+	flex-grow: 1;
 }
 .product-row {
 	display: flex;
