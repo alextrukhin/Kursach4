@@ -5,7 +5,7 @@ import java.util.List;
 public class OrderBuilder {
     private int id;
     private List<OrderProduct> products;
-    private List<Bunch> bunches;
+    private List<OrderBunch> bunches;
     private String status;
     private long createdAt;
     private long lastStatusChange;
@@ -63,7 +63,7 @@ public class OrderBuilder {
         this.products = products;
         return this;
     }
-    public OrderBuilder setBunches(List<Bunch> bunches) {
+    public OrderBuilder setBunches(List<OrderBunch> bunches) {
         this.bunches = bunches;
         return this;
     }

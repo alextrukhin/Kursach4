@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -109,8 +110,8 @@ public class CourseworkApplication {
             }
         }
         orderBuilder.setId(highestId + 1);
-        orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
-        orderBuilder.setBunches((List<Bunch>) datamap.get("bunches"));
+        orderBuilder.setProducts((List<OrderProduct>) ((LinkedHashMap<Number, OrderProduct>) datamap.get("products")).values());
+        orderBuilder.setBunches((List<OrderBunch>) ((LinkedHashMap<Number, OrderBunch>) datamap.get("bunches")).values());
         orderBuilder.setStatus(datamap.get("status").toString());
         orderBuilder.setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()));
         orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
@@ -157,7 +158,7 @@ public class CourseworkApplication {
         if (datamap.get("products") != null)
             orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
         if (datamap.get("bunches") != null)
-            orderBuilder.setBunches((List<Bunch>) datamap.get("bunches"));
+            orderBuilder.setBunches((List<OrderBunch>) datamap.get("bunches"));
         if (datamap.get("status") != null)
             orderBuilder.setStatus(datamap.get("status").toString());
         if (datamap.get("createdAt") != null)

@@ -2,7 +2,6 @@ package nau.coursework4.server;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Order {
@@ -13,8 +12,8 @@ public class Order {
         cash, card
     }
     private int id;
-    private LinkedHashMap<Number, OrderProduct> products;
-    private List<Bunch> bunches;
+    private List<OrderProduct> products;
+    private List<OrderBunch> bunches;
     private String status;
     private long createdAt;
     private long lastStatusChange;
@@ -32,8 +31,8 @@ public class Order {
     }
 
     public Order(int id,
-                 LinkedHashMap<Number, OrderProduct> products,
-                 LinkedHashMap<Number, Bunch> bunches,
+                 List<OrderProduct> products,
+                 List<OrderBunch> bunches,
                  String status,
                  long createdAt,
                  long lastStatusChange,
@@ -68,12 +67,11 @@ public class Order {
 
     @SerializedName("products")
     public List<OrderProduct> getProducts() {
-        return products instanceof LinkedHashMap<?,?> ? products.values() : null;
         return products;
     }
 
     @SerializedName("bunches")
-    public List<Bunch> getBunches() {
+    public List<OrderBunch> getBunches() {
         return bunches;
     }
 
