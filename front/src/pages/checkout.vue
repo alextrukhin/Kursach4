@@ -125,7 +125,7 @@
 					<h2>Products in cart</h2>
 					<div
 						v-for="product in products"
-						:key="product.productID"
+						:key="product.productId"
 						class="product-card"
 					>
 						<div class="product-left">
@@ -185,7 +185,7 @@ const products = computed(() =>
 	productsStore.carted.content.products.map((cartElem) => ({
 		...cartElem,
 		product: productsStore.products.find(
-			(product) => product.id === cartElem.productID
+			(product) => product.id === cartElem.productId
 		),
 	}))
 );
@@ -198,7 +198,7 @@ const totalPrice = computed(() => {
 productsStore.carted.content.products.map((cartElem) => ({
 	...cartElem,
 	product: productsStore.products.find(
-		(product) => product.id === cartElem.productID
+		(product) => product.id === cartElem.productId
 	)!,
 }));
 
@@ -208,7 +208,7 @@ const submit = async () => {
 	const order: Order = {
 		id: 0,
 		products: products.value.map((product) => ({
-			productID: product.product!.id,
+			productId: product.product!.id,
 			quantity: product.quantity,
 		})),
 		bunches: productsStore.carted.content.bunches,

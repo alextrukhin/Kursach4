@@ -7,8 +7,8 @@
 	</div>
 	<div class="container">
 		<h2>Flowers</h2>
-		<div v-for="elem in products" :key="elem.productID">
-			<RouterLink :to="`/flower/${elem.productID}`">
+		<div v-for="elem in products" :key="elem.productId">
+			<RouterLink :to="`/flower/${elem.productId}`">
 				<CartCard
 					:photoUrl="elem.product?.image || ''"
 					:name="elem.product?.name"
@@ -53,7 +53,7 @@ const products = computed(() =>
 		return {
 			...cartElem,
 			product: productsStore.products.find(
-				(product) => product.id === cartElem.productID
+				(product) => product.id === cartElem.productId
 			),
 		};
 	})

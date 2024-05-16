@@ -19,9 +19,9 @@ export const useOrdersStore = defineStore("orders", () => {
 		// 	{
 		// 		id: 1,
 		// 		products: [
-		// 			{ productID: 1, quantity: 1 },
-		// 			{ productID: 2, quantity: 2 },
-		// 			{ productID: 3, quantity: 3 },
+		// 			{ productId: 1, quantity: 1 },
+		// 			{ productId: 2, quantity: 2 },
+		// 			{ productId: 3, quantity: 3 },
 		// 		],
 		// 		bunches: [],
 		// 		status: "pending",
@@ -39,9 +39,9 @@ export const useOrdersStore = defineStore("orders", () => {
 		// 	{
 		// 		id: 2,
 		// 		products: [
-		// 			{ productID: 1, quantity: 1 },
-		// 			{ productID: 2, quantity: 2 },
-		// 			{ productID: 3, quantity: 3 },
+		// 			{ productId: 1, quantity: 1 },
+		// 			{ productId: 2, quantity: 2 },
+		// 			{ productId: 3, quantity: 3 },
 		// 		],
 		// 		bunches: [],
 		// 		status: "pending",

@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static nau.coursework4.server.Sendgrid.sendEmail;
@@ -110,8 +107,27 @@ public class CourseworkApplication {
             }
         }
         orderBuilder.setId(highestId + 1);
-        orderBuilder.setProducts((List<OrderProduct>) ((LinkedHashMap<Number, OrderProduct>) datamap.get("products")).values());
-        orderBuilder.setBunches((List<OrderBunch>) ((LinkedHashMap<Number, OrderBunch>) datamap.get("bunches")).values());
+        orderBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("products")).stream().map(p -> {
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setProductId(Integer.parseInt(p.get("productId").toString()));
+            orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
+            return orderProduct;
+        }).collect(Collectors.toList()));
+        orderBuilder.setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
+            OrderBunch orderProduct = new OrderBunch();
+            BunchBuilder bunchBuilder = new BunchBuilder();
+            bunchBuilder.setId(Integer.parseInt(((LinkedHashMap<String, ?>) p.get("bunch")).get("id").toString()));
+            bunchBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) ((LinkedHashMap<String, ?>) p.get("bunch")).get("products")).stream().map(bp -> {
+                BunchProduct bunchProduct = new BunchProduct();
+                bunchProduct.setId(Integer.parseInt(bp.get("productId").toString()));
+                bunchProduct.setX(Integer.parseInt(bp.get("x").toString()));
+                bunchProduct.setY(Integer.parseInt(bp.get("y").toString()));
+                return bunchProduct;
+            }).collect(Collectors.toList()));
+            orderProduct.setBunch(bunchBuilder.build());
+            orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
+            return orderProduct;
+        }).collect(Collectors.toList()));
         orderBuilder.setStatus(datamap.get("status").toString());
         orderBuilder.setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()));
         orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));

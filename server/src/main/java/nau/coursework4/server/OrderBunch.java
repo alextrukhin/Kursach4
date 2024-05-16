@@ -13,7 +13,13 @@ public class OrderBunch {
     public Bunch getBunch() {
         return bunch;
     }
+    public void setBunch(Bunch bunch) {
+        this.bunch = bunch;
+    }
     public int getQuantity() {
         return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

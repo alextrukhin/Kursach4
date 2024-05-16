@@ -8,7 +8,7 @@ export const useProductsStore = defineStore("products", () => {
 	const bunches = ref<Bunch[]>([]);
 	const carted = reactive<{
 		content: {
-			products: { productID: number; quantity: number }[];
+			products: { productId: number; quantity: number }[];
 			bunches: { bunch: Bunch; quantity: number }[];
 		};
 		lastChange: number;
@@ -54,7 +54,7 @@ export const useProductsStore = defineStore("products", () => {
 	const cartedProducts = computed(() => {
 		let toReturn: Array<Product & { quantity: number }> = [];
 		carted.content.products.map((el) => ({
-			...products.value.find((prod) => prod.id == el.productID)!,
+			...products.value.find((prod) => prod.id == el.productId)!,
 			quantity: el.quantity,
 		}));
 		return toReturn;
@@ -90,7 +90,7 @@ export const useProductsStore = defineStore("products", () => {
 		let sum = 0;
 		carted.content.products.forEach((el) => {
 			let product = products.value.find(
-				(prod) => prod.id == el.productID
+				(prod) => prod.id == el.productId
 			);
 			if (product) sum += product.price * el.quantity;
 		});
@@ -106,51 +106,51 @@ export const useProductsStore = defineStore("products", () => {
 		});
 		return sum;
 	});
-	function getProductByID(productID: number) {
-		const product = products.value.find((el) => el.id == productID);
+	function getProductByID(productId: number) {
+		const product = products.value.find((el) => el.id == productId);
 		if (!product) {
 			return productsFetched.value ? null : undefined;
 		}
 		return {
 			...product,
 			carted: carted.content.products.some(
-				(el) => el.productID == productID
+				(el) => el.productId == productId
 			),
 			quantity:
-				carted.content.products.find((el) => el.productID == productID)
+				carted.content.products.find((el) => el.productId == productId)
 					?.quantity || 0,
 		};
 	}
-	function getProductsByID(productIDs: number[]) {
-		return productIDs.map((el) => getProductByID(el));
+	function getProductsByID(productIds: number[]) {
+		return productIds.map((el) => getProductByID(el));
 	}
-	async function cartProduct(productID: number) {
-		console.log("cartProduct", productID);
-		if (carted.content.products.some((el) => el.productID == productID))
+	async function cartProduct(productId: number) {
+		console.log("cartProduct", productId);
+		if (carted.content.products.some((el) => el.productId == productId))
 			return;
 		carted.content.products.push({
-			productID: productID,
+			productId: productId,
 			quantity: 1,
 		});
 		carted.lastChange = Math.floor(new Date().valueOf() / 1000);
 	}
-	async function uncartProduct(productID: number) {
-		console.log("uncartProduct", productID);
-		if (!carted.content.products.some((el) => el.productID == productID))
+	async function uncartProduct(productId: number) {
+		console.log("uncartProduct", productId);
+		if (!carted.content.products.some((el) => el.productId == productId))
 			return;
 		let indexOfThisProduct = carted.content.products.findIndex(
-			(el) => el.productID == productID
+			(el) => el.productId == productId
 		);
 		carted.content.products.splice(indexOfThisProduct, 1);
 		carted.lastChange = Math.floor(new Date().valueOf() / 1000);
 	}
 	async function cartChangeProductQuantity(
-		productID: number,
+		productId: number,
 		quantity: number
 	) {
-		console.log("cartChangeProductQuantity", productID);
+		console.log("cartChangeProductQuantity", productId);
 		let targetElement = carted.content.products.find(
-			(el) => el.productID == productID
+			(el) => el.productId == productId
 		);
 		if (!targetElement) return;
 		if (targetElement) {

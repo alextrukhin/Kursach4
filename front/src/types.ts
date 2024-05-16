@@ -19,7 +19,7 @@ export type Bunch = {
 
 export type Order = {
 	id: number;
-	products: { productID: number; quantity: number }[];
+	products: { productId: number; quantity: number }[];
 	bunches: Array<{ bunch: Bunch; quantity: number }>;
 	status: string;
 	createdAt: number;
