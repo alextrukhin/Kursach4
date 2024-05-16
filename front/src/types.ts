@@ -5,7 +5,8 @@ export type Product = {
 	id: number;
 	name: string;
 	color: string;
-	description: string;
+	type: string;
+	type: "Flower" | "Bouquet";
 	price: number;
 	seasoning: string;
 	image: string | null;

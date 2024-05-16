@@ -10,6 +10,7 @@ import AdminProductsPage from "./pages/admin/products.vue";
 import AdminBunchesPage from "./pages/admin/bunches.vue";
 import AdminOrdersPage from "./pages/admin/orders.vue";
 import CheckoutPage from "./pages/checkout.vue";
+import CheckoutSuccessPage from "./pages/checkout-success.vue";
 import OrderPage from "./pages/order.vue";
 
 const router = createRouter({
@@ -64,6 +65,11 @@ const router = createRouter({
 			path: "/checkout",
 			name: "checkout",
 			component: CheckoutPage,
+		},
+		{
+			path: "/checkout-success",
+			name: "checkout-success",
+			component: CheckoutSuccessPage,
 		},
 		{
 			path: "/order/:id",

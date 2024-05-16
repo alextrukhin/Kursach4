@@ -66,22 +66,22 @@ public class CourseworkApplication {
     @PostMapping(path = "/addFlower", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> addProduct(@RequestBody Map<String, Object> datamap) {
-        FlowerBuilder flowerBuilder = new FlowerBuilder();
+        ProductBuilder productBuilder = new ProductBuilder();
 
         int highestId = 0;
-        for (Flower flower : flowersStore.data) {
-            if (flower.getId() > highestId) {
-                highestId = flower.getId();
+        for (Product product : flowersStore.data) {
+            if (product.getId() > highestId) {
+                highestId = product.getId();
             }
         }
-        flowerBuilder.setId(highestId + 1);
-        flowerBuilder.setName(datamap.get("name").toString());
-        flowerBuilder.setPrice(Double.parseDouble(datamap.get("price").toString()));
-        flowerBuilder.setColor(datamap.get("color").toString());
-        flowerBuilder.setDescription(datamap.get("description").toString());
-        flowerBuilder.setSeasoning(datamap.get("seasoning").toString());
+        productBuilder.setId(highestId + 1);
+        productBuilder.setName(datamap.get("name").toString());
+        productBuilder.setPrice(Double.parseDouble(datamap.get("price").toString()));
+        productBuilder.setColor(datamap.get("color").toString());
+        productBuilder.setDescription(datamap.get("description").toString());
+        productBuilder.setSeasoning(datamap.get("seasoning").toString());
 
-        Flower product = flowerBuilder.build();
+        Product product = productBuilder.build();
 
         flowersStore.addProduct(product);
         return new ResponseEntity<Object>(HttpStatus.OK);
@@ -149,8 +149,8 @@ public class CourseworkApplication {
                     "New order: #" + order.getId(),
                     "Your order content " + order.getProducts().stream()
                             .map(p -> {
-                                Flower flower = flowersStore.getProductById(p.getProductId());
-                                return flower.getName() + " " + flower.getColor() + " " + flower.getSeasoning() + " " + flower.getPrice() + " x " + p.getQuantity();
+                                Product product = flowersStore.getProductById(p.getProductId());
+                                return product.getName() + " " + product.getColor() + " " + product.getSeasoning() + " " + product.getPrice() + " x " + p.getQuantity();
                             })
                             .collect(Collectors.joining(","))
             );

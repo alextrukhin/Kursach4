@@ -150,6 +150,7 @@ import { Order } from "@/types";
 import { z } from "zod";
 import { useOrdersStore } from "@/stores/orders";
 import BunchCard from "@/components/BunchCard.vue";
+import router from "@/router";
 
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
@@ -221,6 +222,7 @@ const submit = async () => {
 	await ordersStore.placeOrder(order);
 	productsStore.carted.content.products = [];
 	productsStore.carted.content.bunches = [];
+	router.push("/checkout-success");
 };
 </script>
 <style scoped>

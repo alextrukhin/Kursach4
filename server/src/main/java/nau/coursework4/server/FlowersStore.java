@@ -11,27 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowersStore {
-    List<Flower> data = new ArrayList<Flower>();
+    List<Product> data = new ArrayList<Product>();
     public FlowersStore() {
         data = readFromFile("products.json");
     }
 
-    public List<Flower> getProducts() {
+    public List<Product> getProducts() {
         return data;
     }
-    public Flower getProductById(Integer id) {
-        for (Flower product : data) {
+    public Product getProductById(Integer id) {
+        for (Product product : data) {
             if (product.getId() == id) {
                 return product;
             }
         }
         return null;
     }
-    public void addProduct(Flower product) {
+    public void addProduct(Product product) {
         data.add(product);
         saveListToFile(data, "products.json");
     }
-    public void updateProduct(Flower product) {
+    public void updateProduct(Product product) {
         data.removeIf(p -> p.getId() == product.getId());
         data.add(product);
         saveListToFile(data, "products.json");
@@ -41,8 +41,8 @@ public class FlowersStore {
         saveListToFile(data, "products.json");
     }
 
-    private List<Flower> readFromFile(String fileName) {
-        Type REVIEW_TYPE = new TypeToken<List<Flower>>() {
+    private List<Product> readFromFile(String fileName) {
+        Type REVIEW_TYPE = new TypeToken<List<Product>>() {
         }.getType();
         Gson gson = new Gson();
         JsonReader reader = null;
@@ -54,7 +54,7 @@ public class FlowersStore {
         }
         return gson.fromJson(reader, REVIEW_TYPE);
     }
-    private void saveListToFile(List<Flower> list, String fileName) {
+    private void saveListToFile(List<Product> list, String fileName) {
         try (Writer writer = new FileWriter("products.json")) {
             Gson gson = new GsonBuilder().create();
             gson.toJson(list, writer);

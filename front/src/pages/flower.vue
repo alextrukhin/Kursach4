@@ -20,12 +20,12 @@
 			<h2>{{ product.name }}</h2>
 			<div style="margin-bottom: 35px">
 				<h3><b>Color</b> - {{ product.color }}</h3>
-				<h3><b>Type</b> - {{ product.description }}</h3>
+				<h3><b>Type</b> - {{ product.type }}</h3>
 				<h3><b>Season</b> - {{ product.seasoning }}</h3>
-				<h3 v-if="product.description === 'Flower'">
+				<h3 v-if="product.type === 'Flower'">
 					<b>Price per 1</b> - ${{ product.price }}
 				</h3>
-				<h3 v-if="product.description === 'Bouquet'">
+				<h3 v-if="product.type === 'Bouquet'">
 					<b>Price</b> - ${{ product.price }}
 				</h3>
 			</div>

@@ -2,22 +2,30 @@ package nau.coursework4.server;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Flower {
+public class Product {
     private int id;
     private String name;
     private String color;
+
+    public enum Type {
+        Flower, Bouquet
+    }
+
+    private Type type;
     private String description;
     private double price;
     private String seasoning;
     private String image;
     private String image_single;
 
-    public Flower() {
+    public Product() {
     }
-    public Flower(int id, String name, String color, String description, double price, String seasoning, String image, String image_single) {
+
+    public Product(int id, String name, String color, Type type, String description, double price, String seasoning, String image, String image_single) {
         this.id = id;
         this.name = name;
         this.color = color;
+        this.type = type;
         this.description = description;
         this.price = price;
         this.seasoning = seasoning;
@@ -27,6 +35,7 @@ public class Flower {
     public int getId() {
         return id;
     }
+
     @SerializedName("name")
     public String getName() {
         return name;
@@ -35,6 +44,11 @@ public class Flower {
     @SerializedName("color")
     public String getColor() {
         return color;
+    }
+
+    @SerializedName("type")
+    public Type getType() {
+        return type;
     }
 
     @SerializedName("description")
@@ -56,6 +70,7 @@ public class Flower {
     public String getImage() {
         return image;
     }
+
     @SerializedName("image_single")
     public String getImageSingle() {
         return image;

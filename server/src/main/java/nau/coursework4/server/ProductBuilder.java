@@ -1,56 +1,61 @@
 package nau.coursework4.server;
 
-public class FlowerBuilder {
+public class ProductBuilder {
     private int id;
     private String name;
     private String color;
+    private Product.Type type;
     private String description;
     private double price;
     private String seasoning;
     private String image;
     private String image_single;
 
-    public FlowerBuilder setId(int id) {
+    public ProductBuilder setId(int id) {
         this.id = id;
         return this;
     }
 
-    public FlowerBuilder setName(String name) {
+    public ProductBuilder setName(String name) {
         this.name = name;
         return this;
     }
 
-    public FlowerBuilder setColor(String color) {
+    public ProductBuilder setColor(String color) {
         this.color = color;
         return this;
     }
 
-    public FlowerBuilder setDescription(String description) {
+    public ProductBuilder setType(String type) {
+        return this;
+    }
+
+    public ProductBuilder setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public FlowerBuilder setPrice(double price) {
+    public ProductBuilder setPrice(double price) {
         this.price = price;
         return this;
     }
 
-    public FlowerBuilder setSeasoning(String seasoning) {
+    public ProductBuilder setSeasoning(String seasoning) {
         this.seasoning = seasoning;
         return this;
     }
 
-    public FlowerBuilder setImage(String image) {
+    public ProductBuilder setImage(String image) {
         this.image = image;
         return this;
     }
 
-    public FlowerBuilder setImageSingle(String image_single) {
+    public ProductBuilder setImageSingle(String image_single) {
         this.image_single = image_single;
         return this;
     }
 
-    public Flower build() {
-        return new Flower(id, name, color, description, price, seasoning, image, image_single);
+    public Product build() {
+        return new Product(id, name, color, type, description, price, seasoning, image, image_single);
     }
 }
