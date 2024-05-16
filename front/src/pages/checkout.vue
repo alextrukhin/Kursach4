@@ -72,6 +72,31 @@
 					</div>
 				</div>
 				<div>
+					<select v-model="formState.payment_type">
+						<option value="cash">Cash</option>
+						<option value="card">Card</option>
+					</select>
+					<div
+						class="error"
+						v-if="triedToSubmit && errors.payment_type"
+					>
+						{{ errors.payment_type[0] }}
+					</div>
+				</div>
+				<div>
+					<select v-model="formState.delivery_type">
+						<option value="postman">Postman</option>
+						<option value="pickup">Pickup</option>
+						<option value="delivery">Delivery</option>
+					</select>
+					<div
+						class="error"
+						v-if="triedToSubmit && errors.delivery_type"
+					>
+						{{ errors.delivery_type[0] }}
+					</div>
+				</div>
+				<div>
 					<textarea
 						v-model="formState.client_comments"
 						placeholder="Comments"
@@ -91,7 +116,7 @@
 				<div class="container">
 					<h2>Bunches</h2>
 					<div
-						v-for="(bunch, index) in bunches"
+						v-for="(bunch, index) in productsStore.cartedBunches"
 						:key="index"
 						class="product-card"
 					>
@@ -136,6 +161,8 @@ const formSchema = z.object({
 	client_phone: z.string().min(1),
 	client_email: z.string().min(1),
 	client_comments: z.string().min(1),
+	payment_type: z.enum(["cash", "card"]),
+	delivery_type: z.enum(["postman", "pickup", "delivery"]),
 });
 type ValidForm = ReturnType<(typeof formSchema)["parse"]>;
 
@@ -147,6 +174,8 @@ const formState = reactive<ValidForm>({
 	client_phone: "",
 	client_email: "",
 	client_comments: "",
+	payment_type: "cash",
+	delivery_type: "pickup",
 });
 
 const errors = computed(
@@ -158,18 +187,6 @@ const products = computed(() =>
 		product: productsStore.products.find(
 			(product) => product.id === cartElem.productID
 		),
-	}))
-);
-const bunches = computed(() =>
-	productsStore.carted.content.bunches.map((bunch) => ({
-		...bunch,
-		products:
-			bunch.products?.map((product) => ({
-				...product,
-				product: productsStore.products.find(
-					(p) => p.id === product.id
-				),
-			})) ?? null,
 	}))
 );
 const totalPrice = computed(() => {
@@ -194,10 +211,7 @@ const submit = async () => {
 			productID: product.product!.id,
 			quantity: product.quantity,
 		})),
-		bunches: productsStore.carted.content.bunches.map((bunch) => ({
-			bunch,
-			quantity: 1,
-		})),
+		bunches: productsStore.carted.content.bunches,
 		status: "created",
 		createdAt: new Date().valueOf(),
 		lastStatusChange: new Date().valueOf(),

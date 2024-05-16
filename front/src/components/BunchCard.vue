@@ -16,7 +16,7 @@
 				{{ bunch.products?.map((e) => e.product?.name).join(", ") }}
 			</h3>
 		</div>
-		<div class="product-right">
+		<div v-if="controls" class="product-right">
 			<button @click="emit('edit')">Edit</button>
 			<button @click="emit('delete')">Delete</button>
 		</div>

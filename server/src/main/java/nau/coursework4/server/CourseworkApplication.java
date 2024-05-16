@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static nau.coursework4.server.Sendgrid.sendEmail;
 
@@ -46,7 +48,7 @@ public class CourseworkApplication {
             }
         }
 
-        bunchBuilder.setId(highestId+1);
+        bunchBuilder.setId(highestId + 1);
         bunchBuilder.setProducts((List<BunchProduct>) datamap.get("products"));
 
         Bunch product = bunchBuilder.build();
@@ -74,7 +76,7 @@ public class CourseworkApplication {
                 highestId = flower.getId();
             }
         }
-        flowerBuilder.setId(highestId+1);
+        flowerBuilder.setId(highestId + 1);
         flowerBuilder.setName(datamap.get("name").toString());
         flowerBuilder.setPrice(Double.parseDouble(datamap.get("price").toString()));
         flowerBuilder.setColor(datamap.get("color").toString());
@@ -106,7 +108,7 @@ public class CourseworkApplication {
                 highestId = order.getId();
             }
         }
-        orderBuilder.setId(highestId+1);
+        orderBuilder.setId(highestId + 1);
         orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
         orderBuilder.setBunches((List<Bunch>) datamap.get("bunches"));
         orderBuilder.setStatus(datamap.get("status").toString());
@@ -118,8 +120,27 @@ public class CourseworkApplication {
         orderBuilder.setClient_phone(datamap.get("client_phone").toString());
         orderBuilder.setClient_email(datamap.get("client_email").toString());
         orderBuilder.setClient_comments(datamap.get("client_comments").toString());
+        orderBuilder.setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()));
+        orderBuilder.setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
 
-        ordersStore.addOrder(orderBuilder.build());
+        Order order = orderBuilder.build();
+        ordersStore.addOrder(order);
+
+        try {
+            sendEmail(
+                    order.getClient_email(),
+                    "New order: #" + order.getId(),
+                    "Your order content " + order.getProducts().stream()
+                            .map(p -> {
+                                Flower flower = flowersStore.getProductById(p.getProductId());
+                                return flower.getName() + " " + flower.getColor() + " " + flower.getSeasoning() + " " + flower.getPrice() + " x " + p.getQuantity();
+                            })
+                            .collect(Collectors.joining(","))
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
@@ -133,35 +154,38 @@ public class CourseworkApplication {
         }
         OrderBuilder orderBuilder = new OrderBuilder(order);
 
-        if(datamap.get("products") != null)
+        if (datamap.get("products") != null)
             orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
-        if(datamap.get("bunches") != null)
+        if (datamap.get("bunches") != null)
             orderBuilder.setBunches((List<Bunch>) datamap.get("bunches"));
-        if(datamap.get("status") != null)
+        if (datamap.get("status") != null)
             orderBuilder.setStatus(datamap.get("status").toString());
-        if(datamap.get("createdAt") != null)
+        if (datamap.get("createdAt") != null)
             orderBuilder.setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()));
-        if(datamap.get("lastStatusChange") != null)
+        if (datamap.get("lastStatusChange") != null)
             orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
-        if(datamap.get("client_firstname") != null)
+        if (datamap.get("client_firstname") != null)
             orderBuilder.setClient_firstname(datamap.get("client_firstname").toString());
-        if(datamap.get("client_lastname") != null)
+        if (datamap.get("client_lastname") != null)
             orderBuilder.setClient_lastname(datamap.get("client_lastname").toString());
-        if(datamap.get("client_address") != null)
+        if (datamap.get("client_address") != null)
             orderBuilder.setClient_address(datamap.get("client_address").toString());
-        if(datamap.get("client_phone") != null)
+        if (datamap.get("client_phone") != null)
             orderBuilder.setClient_phone(datamap.get("client_phone").toString());
-        if(datamap.get("client_email") != null)
+        if (datamap.get("client_email") != null)
             orderBuilder.setClient_email(datamap.get("client_email").toString());
-        if(datamap.get("client_comments") != null)
+        if (datamap.get("client_comments") != null)
             orderBuilder.setClient_comments(datamap.get("client_comments").toString());
-        if(datamap.get("payment_type") != null)
+        if (datamap.get("payment_type") != null)
             orderBuilder.setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()));
-        if(datamap.get("delivery_type") != null)
+        if (datamap.get("delivery_type") != null)
             orderBuilder.setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
+
+        ordersStore.updateOrder(orderBuilder.build());
 
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
+
     @PostMapping(path = "/updateOrderStatus", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> updateOrderStatus(@RequestBody Map<String, Object> datamap) {
@@ -172,13 +196,14 @@ public class CourseworkApplication {
         orderBuilder.setStatus(datamap.get("status").toString());
         orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
 
-//        try {
-//            sendEmail("trykhin2004@gmail.com", "Order status changed", "Order status changed to " + datamap.get("status").toString());
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-
         ordersStore.updateOrder(orderBuilder.build());
+
+        try {
+            sendEmail(order.getClient_email(), "Order status changed", "Order status changed to " + datamap.get("status").toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 }

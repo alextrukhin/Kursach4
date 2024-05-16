@@ -32,6 +32,6 @@ export type Order = {
 	client_email: string;
 	client_comments: string;
 
-	payment_method: PaymentType;
-	delivery_method: DeliveryType;
+	payment_type: PaymentType;
+	delivery_type: DeliveryType;
 };

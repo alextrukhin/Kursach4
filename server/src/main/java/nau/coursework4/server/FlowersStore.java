@@ -19,6 +19,14 @@ public class FlowersStore {
     public List<Flower> getProducts() {
         return data;
     }
+    public Flower getProductById(Integer id) {
+        for (Flower product : data) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
     public void addProduct(Flower product) {
         data.add(product);
         saveListToFile(data, "products.json");

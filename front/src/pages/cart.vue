@@ -1,6 +1,6 @@
 <template>
 	<div class="buy-container">
-		<h1>Total price of cart - ${{ totalPrice }}</h1>
+		<h1>Total price of cart - ${{ productsStore.cartSum }}</h1>
 		<RouterLink to="/checkout">
 			<div class="buy-button"><h2>Checkout</h2></div>
 		</RouterLink>
@@ -58,18 +58,12 @@ const products = computed(() =>
 		};
 	})
 );
-const totalPrice = computed(() => {
-	return products.value.reduce(
-		(sum, item) => sum + (item.product?.price ?? 0) * item.quantity,
-		0
-	);
-});
 const bunches = computed(() =>
 	productsStore.carted.content.bunches.map((bunch) => {
 		return {
 			...bunch,
 			products:
-				bunch.products?.map((product) => {
+				bunch.bunch.products?.map((product) => {
 					return {
 						...product,
 						product: productsStore.products.find(
@@ -83,8 +77,8 @@ const bunches = computed(() =>
 
 const createBunch = () => {
 	productsStore.carted.content.bunches.push({
-		id: null,
-		products: [],
+		bunch: { id: null, products: [] },
+		quantity: 1,
 	});
 };
 const deleteBunch = (index: number) => {

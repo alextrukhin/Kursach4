@@ -5,10 +5,11 @@ import type { Bunch, Product } from "../types";
 export const useProductsStore = defineStore("products", () => {
 	const productsFetched = ref(false);
 	const products = ref<Product[]>([]);
+	const bunches = ref<Bunch[]>([]);
 	const carted = reactive<{
 		content: {
 			products: { productID: number; quantity: number }[];
-			bunches: Bunch[];
+			bunches: { bunch: Bunch; quantity: number }[];
 		};
 		lastChange: number;
 	}>({
@@ -25,7 +26,6 @@ export const useProductsStore = defineStore("products", () => {
 			const stored = localStorage.getItem("carted");
 			if (stored) {
 				const parsed = JSON.parse(stored) as typeof carted;
-				console.log("parsed", parsed);
 				if (!parsed.content) throw new Error("Invalid carted content");
 				if (!parsed.lastChange)
 					throw new Error("Invalid carted lastChange");
@@ -35,149 +35,14 @@ export const useProductsStore = defineStore("products", () => {
 		} catch {
 			localStorage.removeItem("carted");
 		}
-		// fetch products here
 		const fetchedProducts = await (
 			await fetch(`http://localhost:8080/flowers`)
 		).json();
 		products.value = fetchedProducts;
-		// products.value = [
-		// 	{
-		// 		id: 1,
-		// 		name: "Rose",
-		// 		color: "Red",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/redRose.jpg",
-		// 		price: 5.0,
-		// 		seasoning: "Growing in a greenhouse",
-		// 	},
-		// 	{
-		// 		id: 2,
-		// 		name: "Rose",
-		// 		color: "Pink",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkRose.jpg",
-		// 		price: 5.0,
-		// 		seasoning: "Growing in a greenhouse",
-		// 	},
-		// 	{
-		// 		id: 3,
-		// 		name: "Rose",
-		// 		color: "White",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteRose.jpg",
-		// 		price: 5.0,
-		// 		seasoning: "Growing in a greenhouse",
-		// 	},
-		// 	{
-		// 		id: 4,
-		// 		name: "Sunflower",
-		// 		color: "Yellow",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/sunflower.jpg",
-		// 		price: 10.0,
-		// 		seasoning: "Summer",
-		// 	},
-		// 	{
-		// 		id: 5,
-		// 		name: "Tulip",
-		// 		color: "White",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteTulip.jpg",
-		// 		price: 3.0,
-		// 		seasoning: "Spring",
-		// 	},
-		// 	{
-		// 		id: 6,
-		// 		name: "Tulip",
-		// 		color: "Pink",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkTulip.jpg",
-		// 		price: 3.0,
-		// 		seasoning: "Spring",
-		// 	},
-		// 	{
-		// 		id: 7,
-		// 		name: "Tulip",
-		// 		color: "Red",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/redTulip.jpg",
-		// 		price: 3.0,
-		// 		seasoning: "Spring",
-		// 	},
-		// 	{
-		// 		id: 8,
-		// 		name: "Gerbera",
-		// 		color: "Pink",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkGerbera.jpg",
-		// 		price: 6.0,
-		// 		seasoning: "Growing in a greenhouse",
-		// 	},
-		// 	{
-		// 		id: 9,
-		// 		name: "Lily",
-		// 		color: "White",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/whiteLily.jpg",
-		// 		price: 9.0,
-		// 		seasoning: "Summer",
-		// 	},
-		// 	{
-		// 		id: 10,
-		// 		name: "Lily",
-		// 		color: "Pink",
-		// 		description: "Flower",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/pinkLily.jpg",
-		// 		price: 9.0,
-		// 		seasoning: "Summer",
-		// 	},
-		// 	{
-		// 		id: 11,
-		// 		name: "100 & 1 Roses",
-		// 		color: "Pink",
-		// 		description: "Bouquet",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/100&1roses.jpg",
-		// 		price: 600.0,
-		// 		seasoning: "Growing in a greenhouse",
-		// 	},
-		// 	{
-		// 		id: 12,
-		// 		name: "Spring bouquet",
-		// 		color: "Pink",
-		// 		description: "Bouquet",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/springBouquet.jpg",
-		// 		price: 300.0,
-		// 		seasoning: "Spring",
-		// 	},
-		// 	{
-		// 		id: 13,
-		// 		name: "Bouquet of lilies",
-		// 		color: "Pink",
-		// 		description: "Bouquet",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfLilies.jpg",
-		// 		price: 400.0,
-		// 		seasoning: "Summer",
-		// 	},
-		// 	{
-		// 		id: 14,
-		// 		name: "Bouquet of peonies",
-		// 		color: "Pink",
-		// 		description: "Bouquet",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfPeonies.jpg",
-		// 		price: 350.0,
-		// 		seasoning: "Spring",
-		// 	},
-		// 	{
-		// 		id: 15,
-		// 		name: "Bouquet of gerberas",
-		// 		color: "Pink",
-		// 		description: "Bouquet",
-		// 		image: "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/public/bouquetOfGerberas.jpg",
-		// 		price: 450.0,
-		// 		seasoning: "Spring",
-		// 	},
-		// ];
-		// console.log(JSON.stringify(products.value));
+		const fetchedBunches = await (
+			await fetch(`http://localhost:8080/bunches`)
+		).json();
+		bunches.value = fetchedBunches;
 		productsFetched.value = true;
 	}
 
@@ -193,6 +58,53 @@ export const useProductsStore = defineStore("products", () => {
 			quantity: el.quantity,
 		}));
 		return toReturn;
+	});
+	const cartedBunches = computed(() => {
+		let toReturn: Array<
+			Bunch & {
+				products: Array<
+					NonNullable<Bunch["products"]>[number] & {
+						product: Product;
+					}
+				>;
+				quantity: number;
+			}
+		> = [];
+		carted.content.bunches
+			.map((el) => ({
+				...bunches.value.find(
+					(bunch) => bunch.id && bunch.id === el.bunch.id
+				),
+				quantity: el.quantity,
+			}))
+			.map((el) => ({
+				...el,
+				products: el.products?.map((p) => ({
+					product: products.value.find((prod) => prod.id == p.id),
+					...p,
+				})),
+			}));
+		return toReturn;
+	});
+	const cartSum = computed(() => {
+		let sum = 0;
+		carted.content.products.forEach((el) => {
+			let product = products.value.find(
+				(prod) => prod.id == el.productID
+			);
+			if (product) sum += product.price * el.quantity;
+		});
+		carted.content.bunches.forEach((el) => {
+			let bunch = bunches.value.find((b) => b.id === el.bunch.id);
+			if (bunch && bunch.products?.length)
+				sum +=
+					bunch.products.reduce(
+						(acc, curr) =>
+							acc + (getProductByID(curr.id)?.price ?? 0),
+						0
+					) * el.quantity;
+		});
+		return sum;
 	});
 	function getProductByID(productID: number) {
 		const product = products.value.find((el) => el.id == productID);
@@ -250,8 +162,11 @@ export const useProductsStore = defineStore("products", () => {
 	return {
 		init,
 		products,
+		bunches,
 		carted,
 		cartedProducts,
+		cartedBunches,
+		cartSum,
 		getProductByID,
 		getProductsByID,
 		cartProduct,
