@@ -26,13 +26,14 @@
         </svg>
       </div>
     </div>
-    <div class="">
+    <div class="container-menu">
       <select v-model="season" class="seasonal-filter">
         <option value="">All seasons</option>
         <option v-for="option in seasonOptions" :value="option.value">
           {{ option.label }}
         </option>
       </select>
+      <div class="arrow"></div>
     </div>
     <div class="container search">
       <input v-model="search" placeholder="Search" type="text" />
@@ -67,7 +68,7 @@ const productsStore = useProductsStore();
 const labels: Record<string, string> = {
   summer: "🌞 Summer",
   spring: "🌸 Spring",
-  greenhouse: "🏡 Growing in greenhouse",
+  greenhouse: "🏡 Greenhouse",
 };
 const colors: Record<string, string> = {
   Red: "#ef6363",
@@ -125,6 +126,14 @@ const filteredProducts = computed(() => {
   border-radius: 35px;
   background-color: #f9eff2;
 }
+.container-menu {
+  position: relative;
+  width: 350px;
+  height: 70px;
+  border-radius: 35px;
+  background-color: #efc1cf;
+  overflow: hidden;
+}
 .color {
   width: 60px;
   height: 60px;
@@ -152,17 +161,41 @@ const filteredProducts = computed(() => {
   cursor: pointer;
 }
 .seasonal-filter {
-  width: 260px;
-  height: 70px;
-  border-radius: 35px;
-  background-color: #efc1cf;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  appearance: none;
+  font-size: 20px;
+  color: #370017;
+  font-family: Montserrat;
+  outline: none;
+  padding-left: 20px;
+  text-transform: uppercase;
 }
 .seasonal-filter:hover {
   box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
+  cursor: pointer;
+}
+.seasonal-filter option {
+  background-color: #f9eff2;
+}
+.seasonal-filter option:checked {
+  background-color: #f2d6de;
+}
+.seasonal-filter option:hover {
+  background-color: #efc1cf;
+}
+.arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px; /* Ширина стрілки */
+  height: 100%;
+  background-image: url("../../arrow.svg"); /* Шлях до зображення стрілки */
+  background-size: contain;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 h2 {
