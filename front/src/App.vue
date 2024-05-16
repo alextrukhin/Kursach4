@@ -17,3 +17,8 @@ productsStore.init();
 	</main>
 	<Footer></Footer>
 </template>
+<style scoped>
+main {
+	flex-grow: 1;
+}
+</style>
