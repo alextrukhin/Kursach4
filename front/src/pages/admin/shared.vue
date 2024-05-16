@@ -1,6 +1,6 @@
 <template>
-	<div id="layout">
-		<div class="sidebar">
+	<div id="admin-list-layout">
+		<div class="admin-list-sidebar">
 			<ul>
 				<li
 					v-for="item in items"
@@ -29,35 +29,30 @@ const emit = defineEmits<{
 	(event: "itemClick", item: Record<string, any>): void;
 }>();
 </script>
-<style scoped>
-#wrapper {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-#layout {
+<style>
+#admin-list-layout {
 	width: 100%;
 	max-width: 1200px;
 	display: flex;
 	flex-direction: row;
 }
-.sidebar {
+.admin-list-sidebar {
 	width: 300px;
 	display: flex;
 	flex-direction: column;
 }
-ul {
+.admin-list-sidebar ul {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	list-style-type: none;
 	padding: 0;
 }
-li {
+.admin-list-sidebar li {
 	width: 100%;
 	height: 50px;
 }
-li a {
+.admin-list-sidebar li a {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -66,7 +61,7 @@ li a {
 	align-items: center;
 	gap: 8px;
 }
-li .center {
+.admin-list-sidebar li .center {
 	flex-grow: 1;
 }
 #second-half {

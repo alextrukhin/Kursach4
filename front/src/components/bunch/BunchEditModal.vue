@@ -28,10 +28,9 @@
 </template>
 <script setup lang="ts">
 import { type PropType, ref, watch, computed } from "vue";
-import BaseModal from "./BaseModal.vue";
+import BaseModal from "../BaseModal.vue";
 import BunchContainer from "./BunchContainer.vue";
 import { debounce } from "perfect-debounce";
-
 import { useProductsStore } from "@/stores/products";
 import { Bunch, Product } from "@/types";
 

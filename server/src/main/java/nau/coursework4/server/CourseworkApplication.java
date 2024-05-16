@@ -172,9 +172,28 @@ public class CourseworkApplication {
         OrderBuilder orderBuilder = new OrderBuilder(order);
 
         if (datamap.get("products") != null)
-            orderBuilder.setProducts((List<OrderProduct>) datamap.get("products"));
+            orderBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("products")).stream().map(p -> {
+                OrderProduct orderProduct = new OrderProduct();
+                orderProduct.setProductId(Integer.parseInt(p.get("productId").toString()));
+                orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
+                return orderProduct;
+            }).collect(Collectors.toList()));
         if (datamap.get("bunches") != null)
-            orderBuilder.setBunches((List<OrderBunch>) datamap.get("bunches"));
+            orderBuilder.setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
+                OrderBunch orderProduct = new OrderBunch();
+                BunchBuilder bunchBuilder = new BunchBuilder();
+                bunchBuilder.setId(Integer.parseInt(((LinkedHashMap<String, ?>) p.get("bunch")).get("id").toString()));
+                bunchBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) ((LinkedHashMap<String, ?>) p.get("bunch")).get("products")).stream().map(bp -> {
+                    BunchProduct bunchProduct = new BunchProduct();
+                    bunchProduct.setId(Integer.parseInt(bp.get("productId").toString()));
+                    bunchProduct.setX(Integer.parseInt(bp.get("x").toString()));
+                    bunchProduct.setY(Integer.parseInt(bp.get("y").toString()));
+                    return bunchProduct;
+                }).collect(Collectors.toList()));
+                orderProduct.setBunch(bunchBuilder.build());
+                orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
+                return orderProduct;
+            }).collect(Collectors.toList()));
         if (datamap.get("status") != null)
             orderBuilder.setStatus(datamap.get("status").toString());
         if (datamap.get("createdAt") != null)

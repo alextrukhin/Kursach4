@@ -149,7 +149,7 @@ import { useProductsStore } from "../stores/products";
 import { Order } from "@/types";
 import { z } from "zod";
 import { useOrdersStore } from "@/stores/orders";
-import BunchCard from "@/components/BunchCard.vue";
+import BunchCard from "@/components/bunch/BunchCard.vue";
 import router from "@/router";
 
 const productsStore = useProductsStore();

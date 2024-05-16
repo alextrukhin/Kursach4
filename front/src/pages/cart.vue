@@ -27,22 +27,21 @@
 				@edit="editBunch(index)"
 			/>
 		</div>
-		<button @click="createBunch">New bunch</button>
 	</div>
+	<button @click="createBunch">New bunch</button>
 	<BunchEditModal
 		v-if="!!bunchToEdit"
 		:bunch="bunchToEdit"
 		@update="updateBunch"
 		@close="bunchToEdit = null"
 	/>
-	{{ bunchToEdit }}
 </template>
 <script setup lang="ts">
 import { useProductsStore } from "../stores/products";
 import { computed, ref } from "vue";
 import CartCard from "../components/CartCard.vue";
-import BunchCard from "@/components/BunchCard.vue";
-import BunchEditModal from "@/components/BunchEditModal.vue";
+import BunchCard from "@/components/bunch/BunchCard.vue";
+import BunchEditModal from "@/components/bunch/BunchEditModal.vue";
 import { Bunch } from "@/types";
 
 const productsStore = useProductsStore();

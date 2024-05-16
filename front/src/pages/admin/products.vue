@@ -1,5 +1,8 @@
 <template>
 	<div id="wrapper">
+		<RouterLink to="/admin">
+			<button>Dashboard</button>
+		</RouterLink>
 		<Layout :items="ordersFiltered">
 			<template #item="{ id, client_firstname, client_lastname, status }">
 				<RouterLink :to="`/admin/products/${id}`">

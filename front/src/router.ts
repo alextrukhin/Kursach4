@@ -7,7 +7,6 @@ import CatalogPage from "./pages/catalog.vue";
 import BunchPage from "./pages/bunch.vue";
 import AdminPage from "./pages/admin/index.vue";
 import AdminProductsPage from "./pages/admin/products.vue";
-import AdminBunchesPage from "./pages/admin/bunches.vue";
 import AdminOrdersPage from "./pages/admin/orders.vue";
 import CheckoutPage from "./pages/checkout.vue";
 import CheckoutSuccessPage from "./pages/checkout-success.vue";
@@ -50,11 +49,6 @@ const router = createRouter({
 			path: "/admin/products/:product?",
 			name: "admin-products",
 			component: AdminProductsPage,
-		},
-		{
-			path: "/admin/bunches/:bunch?",
-			name: "admin-bunches",
-			component: AdminBunchesPage,
 		},
 		{
 			path: "/admin/orders/:order?",

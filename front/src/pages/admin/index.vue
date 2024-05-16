@@ -6,9 +6,6 @@
 		<RouterLink to="/admin/products">
 			<button>Products</button>
 		</RouterLink>
-		<RouterLink to="/admin/bunches">
-			<button>Bunches</button>
-		</RouterLink>
 	</div>
 </template>
 <script setup lang="ts"></script>

@@ -1,19 +1,15 @@
 <template>
 	<div v-if="bunch" class="bunch-card-wrapper">
-		<div v-if="!bunch.products" class="product-left"></div>
-		<div v-else-if="bunch.products.length >= 4" class="product-left-4">
-			<img :src="bunch.products[0].product?.image" />
-			<img :src="bunch.products[1].product?.image" />
-			<img :src="bunch.products[2].product?.image" />
-			<img :src="bunch.products[3].product?.image" />
-		</div>
-		<div v-else-if="bunch.products.length >= 2" class="product-left-2">
-			<img :src="bunch.products[0].product?.image" />
-			<img :src="bunch.products[1].product?.image" />
+		<div class="product-left">
+			<BunchPreview :products="bunch.products" />
 		</div>
 		<div class="product-center">
 			<h3>
-				{{ bunch.products?.map((e) => e.product?.name).join(", ") }}
+				{{
+					Array.from(
+						new Set(bunch.products?.map((e) => e.product?.name))
+					).join(", ")
+				}}
 			</h3>
 		</div>
 		<div v-if="controls" class="product-right">
@@ -25,6 +21,7 @@
 <script setup lang="ts">
 import { Bunch, Product } from "@/types";
 import { type PropType } from "vue";
+import BunchPreview from "./BunchPreview.vue";
 
 defineProps({
 	bunch: {

@@ -61,9 +61,14 @@ export const useOrdersStore = defineStore("orders", () => {
 	}
 
 	async function updateOrder(order: Order) {
-		// // update order here
-		// orders.value = orders.value.map((o) => (o.id === order.id ? order : o));
-		// await fetch(`http://localhost:8080/bunches`, {});
+		await fetch(`http://localhost:8080/updateOrder`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(order),
+		});
+		orders.value = orders.value.map((o) => (o.id === order.id ? order : o));
 	}
 
 	async function placeOrder(order: Order) {
