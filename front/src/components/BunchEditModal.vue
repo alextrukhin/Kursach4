@@ -49,6 +49,7 @@ const emit = defineEmits<{
 const bunchLocal = ref(props.bunch);
 
 const addProduct = (product: Product) => {
+	console.log(product);
 	bunchLocal.value.products?.push({ id: product.id, x: 0, y: 0 });
 };
 

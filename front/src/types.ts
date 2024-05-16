@@ -5,7 +5,7 @@ export type Product = {
 	id: number;
 	name: string;
 	color: string;
-	type: string;
+	description: string;
 	type: "Flower" | "Bouquet";
 	price: number;
 	seasoning: string;

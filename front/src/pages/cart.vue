@@ -86,10 +86,10 @@ const deleteBunch = (index: number) => {
 };
 const editBunch = (index: number) => {
 	bunchToEditIndex.value = index;
-	bunchToEdit.value = productsStore.carted.content.bunches[index];
+	bunchToEdit.value = productsStore.carted.content.bunches[index].bunch;
 };
 const updateBunch = (bunch: Bunch) => {
-	productsStore.carted.content.bunches[bunchToEditIndex] = bunch;
+	productsStore.carted.content.bunches[bunchToEditIndex.value!].bunch = bunch;
 	bunchToEdit.value = null;
 };
 </script>

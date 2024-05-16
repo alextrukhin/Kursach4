@@ -6,7 +6,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/redRose.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1redRose.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1redRose.png",
     "price": 5,
     "seasoning": "greenhouse"
   },
@@ -17,7 +17,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkRose.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkRose.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkRose.png",
     "price": 5,
     "seasoning": "greenhouse"
   },
@@ -28,7 +28,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/whiteRose.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1whiteRose.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1whiteRose.png",
     "price": 5,
     "seasoning": "greenhouse"
   },
@@ -39,7 +39,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/sunflower.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1sunflower.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1sunflower.png",
     "price": 10,
     "seasoning": "summer"
   },
@@ -50,7 +50,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/whiteTulip.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1whiteTulip.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1whiteTulip.png",
     "price": 3,
     "seasoning": "spring"
   },
@@ -61,7 +61,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkTulip.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkTulip.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkTulip.png",
     "price": 3,
     "seasoning": "spring"
   },
@@ -72,7 +72,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/redTulip.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1redTulip.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1redTulip.png",
     "price": 3,
     "seasoning": "spring"
   },
@@ -83,7 +83,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkGerbera.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkGerbera.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkGerbera.png",
     "price": 6,
     "seasoning": "greenhouse"
   },
@@ -94,7 +94,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/whiteLily.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1whiteLily.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1whiteLily.png",
     "price": 9,
     "seasoning": "summer"
   },
@@ -105,7 +105,7 @@
     "type": "Flower",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/pinkLily.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkLily.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/1pinkLily.png",
     "price": 9,
     "seasoning": "summer"
   },
@@ -116,7 +116,7 @@
     "type": "Bouquet",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/100&1roses.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/100&1roses.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/100&1roses.png",
     "price": 600,
     "seasoning": "greenhouse"
   },
@@ -127,7 +127,7 @@
     "type": "Bouquet",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/springBouquet.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/springBouquet.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/springBouquet.png",
     "price": 300,
     "seasoning": "spring"
   },
@@ -138,7 +138,7 @@
     "type": "Bouquet",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfLilies.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfLilies.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfLilies.png",
     "price": 400,
     "seasoning": "summer"
   },
@@ -149,7 +149,7 @@
     "type": "Bouquet",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfPeonies.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfPeonies.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfPeonies.png",
     "price": 350,
     "seasoning": "spring"
   },
@@ -160,7 +160,7 @@
     "type": "Bouquet",
     "description": "",
     "image": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfGerberas.jpg",
-    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfGerberas.jpg",
+    "image_single": "https://raw.githubusercontent.com/alextrukhin/Kursach4_front/master/front/public/bouquetOfGerberas.png",
     "price": 450,
     "seasoning": "spring"
   }

@@ -21,7 +21,11 @@
 			v-on:dragging="changePosition($event, index)"
 		>
 			<div class="product-card">
-				<img :src="product.product?.image" />
+				<img
+					:src="
+						product.product?.image_single ?? product.product?.image
+					"
+				/>
 			</div>
 		</VueDragResize>
 	</div>
