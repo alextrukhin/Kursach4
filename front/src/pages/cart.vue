@@ -21,7 +21,7 @@
 	<h2>Bunches</h2>
 	<div class="container">
 		<div v-for="(elem, index) in bunches" :key="index">
-			<BunchCard
+			<BunchCartCard
 				:bunch="elem"
 				@delete="deleteBunch(index)"
 				@edit="editBunch(index)"
@@ -40,7 +40,7 @@
 import { useProductsStore } from "../stores/products";
 import { computed, ref } from "vue";
 import CartCard from "../components/CartCard.vue";
-import BunchCard from "@/components/bunch/BunchCard.vue";
+import BunchCartCard from "@/components/BunchCartCard.vue";
 import BunchEditModal from "@/components/bunch/BunchEditModal.vue";
 import { Bunch } from "@/types";
 

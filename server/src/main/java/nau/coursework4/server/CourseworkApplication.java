@@ -116,10 +116,14 @@ public class CourseworkApplication {
         orderBuilder.setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
             OrderBunch orderProduct = new OrderBunch();
             BunchBuilder bunchBuilder = new BunchBuilder();
-            bunchBuilder.setId(Integer.parseInt(((LinkedHashMap<String, ?>) p.get("bunch")).get("id").toString()));
-            bunchBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) ((LinkedHashMap<String, ?>) p.get("bunch")).get("products")).stream().map(bp -> {
+            LinkedHashMap<String, ?> bunch = (LinkedHashMap<String, ?>) p.get("bunch");
+            if (bunch.get("id") != null) {
+                bunchBuilder.setId(Integer.parseInt(bunch.get("id").toString()));
+            }
+            ArrayList<LinkedHashMap<String, ?>> bunchProducts = (ArrayList<LinkedHashMap<String, ?>>) bunch.get("products");
+            bunchBuilder.setProducts(bunchProducts.stream().map(bp -> {
                 BunchProduct bunchProduct = new BunchProduct();
-                bunchProduct.setId(Integer.parseInt(bp.get("productId").toString()));
+                bunchProduct.setId(Integer.parseInt(bp.get("id").toString()));
                 bunchProduct.setX(Integer.parseInt(bp.get("x").toString()));
                 bunchProduct.setY(Integer.parseInt(bp.get("y").toString()));
                 return bunchProduct;

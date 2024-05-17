@@ -41,7 +41,7 @@
 					<h2>Bunches</h2>
 					<div class="container">
 						<div v-for="(elem, index) in orderBunches" :key="index">
-							<BunchCard :bunch="elem" />
+							<BunchCard :bunch="elem.bunch" />
 						</div>
 					</div>
 					<form id="order" @submit.prevent="submit">
