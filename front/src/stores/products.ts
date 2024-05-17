@@ -94,15 +94,15 @@ export const useProductsStore = defineStore("products", () => {
 			);
 			if (product) sum += product.price * el.quantity;
 		});
-		carted.content.bunches.forEach((el) => {
-			let bunch = bunches.value.find((b) => b.id === el.bunch.id);
-			if (bunch && bunch.products?.length)
+		carted.content.bunches.forEach((bunch) => {
+			console.log("bunch", bunch);
+			if (bunch?.bunch?.products?.length)
 				sum +=
-					bunch.products.reduce(
+					bunch?.bunch.products.reduce(
 						(acc, curr) =>
 							acc + (getProductByID(curr.id)?.price ?? 0),
 						0
-					) * el.quantity;
+					) * bunch.quantity;
 		});
 		return sum;
 	});
