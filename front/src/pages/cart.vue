@@ -8,14 +8,13 @@
 	<h2>Flowers</h2>
 	<div class="container">
 		<div v-for="elem in products" :key="elem.productId">
-			<RouterLink :to="`/flower/${elem.productId}`">
-				<CartCard
-					:photoUrl="elem.product?.image || ''"
-					:name="elem.product?.name"
-					:price="elem.product?.price"
-					:quantity="elem.quantity"
-				/>
-			</RouterLink>
+			<CartCard
+				:id="elem.productId"
+				:photoUrl="elem.product?.image || ''"
+				:name="elem.product?.name"
+				:price="elem.product?.price"
+				:quantity="elem.quantity"
+			/>
 		</div>
 	</div>
 	<h2>Bunches</h2>
