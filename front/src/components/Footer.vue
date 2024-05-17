@@ -7,8 +7,11 @@
       </div>
       <div class="right-container">
         <p class="right-text">
-          Created by<br />Alexander Trukhin<br />and Anna Kuts’
+          Created by Anna Kuts’<br />and Alexander Trukhin
         </p>
+        <RouterLink to="/admin">
+          <p class="right-text"><b>Admin menu</b></p>
+        </RouterLink>
       </div>
     </div>
   </footer>

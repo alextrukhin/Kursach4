@@ -12,11 +12,22 @@ import { RouterLink } from "vue-router";
           </div>
         </RouterLink>
       </div>
-
-      <div class="cart">
-        <RouterLink to="/cart">
-          <img style="height: 60px" src="../../Cart.svg" />
-        </RouterLink>
+      <div class="container">
+        <div class="cart">
+          <RouterLink to="/bunch">
+            <img style="height: 60px" src="../../bunch.svg" />
+          </RouterLink>
+        </div>
+        <div class="cart">
+          <RouterLink to="/catalog">
+            <img style="height: 60px" src="../../flower.svg" />
+          </RouterLink>
+        </div>
+        <div class="cart">
+          <RouterLink to="/cart">
+            <img style="height: 60px" src="../../Cart.svg" />
+          </RouterLink>
+        </div>
       </div>
     </div>
   </header>
@@ -37,6 +48,12 @@ header {
   justify-content: space-between;
   align-items: center;
   margin: auto;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
 }
 .logo-container {
   display: flex;
@@ -63,7 +80,7 @@ h1 {
 .cart {
   height: 70px;
   width: 70px;
-  margin: 5px 0;
+  margin: 5px 0 5px 25px;
   border-radius: 35px;
   padding: 0;
   display: flex;

@@ -134,6 +134,10 @@ const filteredProducts = computed(() => {
   background-color: #efc1cf;
   overflow: hidden;
 }
+.container-menu:hover {
+  box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
+  cursor: pointer;
+}
 .color {
   width: 60px;
   height: 60px;
@@ -143,20 +147,6 @@ const filteredProducts = computed(() => {
   border-radius: 35px;
 }
 .color:hover {
-  box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
-  cursor: pointer;
-}
-.filter-btn {
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
-  background-color: #efc1cf;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.filter-btn:hover {
   box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
   cursor: pointer;
 }
