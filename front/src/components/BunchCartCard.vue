@@ -119,12 +119,4 @@ const bunchPrice = computed(() => {
   outline: none;
   box-shadow: none;
 }
-.btn:hover,
-.btn:active,
-.btn:focus {
-  background: #fff;
-  box-shadow: none;
-  border: 2px;
-  border-color: #efc1cf;
-}
 </style>
