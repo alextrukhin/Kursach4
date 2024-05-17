@@ -43,7 +43,7 @@ const bunchPrice = computed(() => {
         {{
           Array.from(new Set(bunch.bunch.products?.map((e) => e.product?.name)))
             .slice(0, 3)
-            .join(", ")
+            .join(", ") || "Bunch"
         }}
       </div>
       <div class="product-price">
