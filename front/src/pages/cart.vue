@@ -62,15 +62,18 @@ const bunches = computed(() =>
 	productsStore.carted.content.bunches.map((bunch) => {
 		return {
 			...bunch,
-			products:
-				bunch.bunch.products?.map((product) => {
-					return {
-						...product,
-						product: productsStore.products.find(
-							(p) => p.id === product.id
-						),
-					};
-				}) ?? null,
+			bunch: {
+				...bunch.bunch,
+				products:
+					bunch.bunch.products?.map((product) => {
+						return {
+							...product,
+							product: productsStore.products.find(
+								(p) => p.id === product.id
+							),
+						};
+					}) ?? null,
+			},
 		};
 	})
 );
