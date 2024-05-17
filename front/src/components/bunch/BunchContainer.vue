@@ -120,7 +120,6 @@ onUnmounted(() => {
 .product-card {
 	width: 50px;
 	height: 50px;
-	background-color: white;
 }
 .bunch-container img {
 	width: 100%;
