@@ -1,6 +1,34 @@
 <template>
   <form class="wrapper" @submit.prevent="submit">
     <div>
+      <div class="buy-container">
+        <h1>Total price of cart - ${{ totalPrice }}</h1>
+      </div>
+      <div class="container">
+        <h2>Bunches</h2>
+        <div
+          v-for="(bunch, index) in productsStore.cartedBunches"
+          :key="index"
+          class="product-card"
+        >
+          <BunchCard :bunch="bunch" :controls="false" />
+        </div>
+        <h2>Products in cart</h2>
+        <div class="container">
+          <div v-for="elem in products" :key="elem.productId">
+            <FlowerCheckout
+              :photoUrl="elem.product?.image || ''"
+              :name="elem.product?.name"
+              :price="elem.product?.price"
+              :quantity="elem.quantity"
+            />
+          </div>
+        </div>
+
+        <button type="submit">Place order</button>
+      </div>
+    </div>
+    <div>
       <h2>Your details</h2>
       <div>
         <input
@@ -84,34 +112,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <div class="buy-container">
-        <h1>Total price of cart - ${{ totalPrice }}</h1>
-      </div>
-      <div class="container">
-        <h2>Bunches</h2>
-        <div
-          v-for="(bunch, index) in productsStore.cartedBunches"
-          :key="index"
-          class="product-card"
-        >
-          <BunchCard :bunch="bunch" :controls="false" />
-        </div>
-        <h2>Products in cart</h2>
-        <div class="container">
-          <div v-for="elem in products" :key="elem.productId">
-            <CartCard
-              :photoUrl="elem.product?.image || ''"
-              :name="elem.product?.name"
-              :price="elem.product?.price"
-              :quantity="elem.quantity"
-            />
-          </div>
-        </div>
-
-        <button type="submit">Place order</button>
-      </div>
-    </div>
   </form>
 </template>
 <script setup lang="ts">
@@ -122,7 +122,8 @@ import { z } from "zod";
 import { useOrdersStore } from "@/stores/orders";
 import BunchCard from "@/components/bunch/BunchCard.vue";
 import router from "@/router";
-import CartCard from "../components/CartCard.vue";
+import CartCard from "../components/FlowerCheckout.vue";
+import FlowerCheckout from "../components/FlowerCheckout.vue";
 const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
 
@@ -211,16 +212,7 @@ const submit = async () => {
 .wrapper {
   display: flex;
   justify-content: center;
-}
-.two-sides {
-  width: 100%;
-  max-width: 1600px;
-  display: flex;
-  flex-direction: row;
-}
-.two-sides > div {
-  width: 50%;
-  padding: 24px;
+  flex-direction: column;
 }
 .container {
   display: flex;
