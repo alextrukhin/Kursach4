@@ -1,6 +1,7 @@
 import { ref, computed, watch, reactive } from "vue";
 import { defineStore } from "pinia";
 import type { Bunch, Product } from "../types";
+import { z } from "zod";
 
 export const useProductsStore = defineStore("products", () => {
 	const productsFetched = ref(false);
@@ -48,7 +49,39 @@ export const useProductsStore = defineStore("products", () => {
 
 	async function handleCartChange(val: typeof carted) {
 		console.log("handleCartChange", val);
-		localStorage.setItem("carted", JSON.stringify(val));
+		localStorage.setItem(
+			"carted",
+			JSON.stringify(
+				z
+					.object({
+						content: z.object({
+							products: z.array(
+								z.object({
+									productId: z.number(),
+									quantity: z.number(),
+								})
+							),
+							bunches: z.array(
+								z.object({
+									bunch: z.object({
+										id: z.number().nullable(),
+										products: z.array(
+											z.object({
+												id: z.number(),
+												x: z.number(),
+												y: z.number(),
+											})
+										),
+									}),
+									quantity: z.number(),
+								})
+							),
+						}),
+						lastChange: z.number(),
+					})
+					.parse(val)
+			)
+		);
 	}
 
 	const cartedProducts = computed(() => {
@@ -95,7 +128,6 @@ export const useProductsStore = defineStore("products", () => {
 			if (product) sum += product.price * el.quantity;
 		});
 		carted.content.bunches.forEach((bunch) => {
-			console.log("bunch", bunch);
 			if (bunch?.bunch?.products?.length)
 				sum +=
 					bunch?.bunch.products.reduce(
@@ -125,7 +157,6 @@ export const useProductsStore = defineStore("products", () => {
 		return productIds.map((el) => getProductByID(el));
 	}
 	async function cartProduct(productId: number) {
-		console.log("cartProduct", productId);
 		if (carted.content.products.some((el) => el.productId == productId))
 			return;
 		carted.content.products.push({
