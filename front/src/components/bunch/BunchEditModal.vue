@@ -106,7 +106,9 @@ watch(
   justify-content: center;
 }
 .bunch-edit-modal__right {
+  height: 100%;
   flex-grow: 1;
+  overflow: hidden auto;
 }
 .product-row {
   display: flex;
