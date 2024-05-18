@@ -76,12 +76,12 @@ const save = () => {
 </script>
 <style scoped>
 .wrapper {
-  width: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: row;
-  gap: 12px;
-  padding: 20px;
-  color: black;
+  width: 1200px;
+  padding: 0;
+  margin: auto;
 }
 .bunch-edit-modal__left {
   display: flex;
@@ -90,7 +90,7 @@ const save = () => {
   justify-content: center;
 }
 .bunch-edit-modal__right {
-  flex-grow: 1;
+  width: 800px;
 }
 .products-list {
   overflow-y: auto;
@@ -101,7 +101,6 @@ const save = () => {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
   margin-top: 8px;
 }
 .product-row img {

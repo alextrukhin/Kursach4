@@ -25,12 +25,19 @@
       <BunchCartCard :bunch="elem" @delete="deleteBunch(index)" @edit="editBunch(index)" />
     </div>
   </div>
+  <BunchEditModal
+    v-if="!!bunchToEdit"
+    :bunch="bunchToEdit"
+    @update="updateBunch"
+    @close="bunchToEdit = null"
+  />
 </template>
 <script setup lang="ts">
 import { useProductsStore } from '../stores/products'
 import { computed, ref } from 'vue'
 import CartCard from '../components/CartCard.vue'
 import BunchCartCard from '@/components/BunchCartCard.vue'
+import BunchEditModal from '@/components/bunch/BunchEditModal.vue'
 import { Bunch } from '@/types'
 
 const productsStore = useProductsStore()

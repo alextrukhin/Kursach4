@@ -181,9 +181,9 @@ const filteredProducts = computed(() => {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 30px; /* Ширина стрілки */
+  width: 30px;
   height: 100%;
-  background-image: url("../../arrow.svg"); /* Шлях до зображення стрілки */
+  background-image: url("../../arrow.svg");
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
