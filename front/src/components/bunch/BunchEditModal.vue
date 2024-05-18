@@ -5,32 +5,37 @@
         <BunchContainer :products="bunchLocal.products" @update="updateProductsDebounced" />
         <span class="text">Drag in corner to delete</span>
       </div>
+      <div class="btn-container">
+        <button @click="emit('close')" class="btn text">
+          <img
+            src="../../../close.svg"
+            alt=""
+            style="width: 30px; height: 30px; margin: 0; padding: 0"
+          />
+        </button>
+      </div>
       <div class="bunch-edit-modal__right">
-        <div class="btn-container">
-          <button @click="emit('close')" class="btn text">
-            <img
-              src="../../../close.svg"
-              alt=""
-              style="width: 30px; height: 30px; margin: 0; padding: 0"
-            />
-          </button>
-        </div>
-        <h3>Used products: - ${{ total }}</h3>
-        <div>
-          <div v-for="product in usedProducts" class="product-row">
-            <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
-            <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
-            <div class="text">
-              {{ product.quantity }} x ${{ product.price }} = {{ product.quantity * product.price }}
+        <div class="used-container">
+          <h3>Used products: - ${{ total }}</h3>
+          <div>
+            <div v-for="product in usedProducts" class="product-row">
+              <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
+              <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
+              <div class="text" style="padding-right: 15px">
+                {{ product.quantity }} x ${{ product.price }} =
+                {{ product.quantity * product.price }}
+              </div>
             </div>
           </div>
         </div>
-        <h3>Products</h3>
-        <div>
-          <div v-for="product in flowers" @click="addProduct(product)" class="product-row">
-            <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
-            <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
-            <div class="text">${{ product.price }}</div>
+        <div class="flowers-container">
+          <h3>Products</h3>
+          <div>
+            <div v-for="product in flowers" @click="addProduct(product)" class="product-row">
+              <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
+              <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
+              <div class="text" style="padding-right: 15px">${{ product.price }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +95,7 @@ watch(
 </script>
 <style scoped>
 .bunch-edit-modal {
-  width: 800px;
+  width: 900px;
   height: 800px;
   display: flex;
   flex-direction: row;
@@ -109,6 +114,20 @@ watch(
   height: 100%;
   flex-grow: 1;
   overflow: hidden auto;
+}
+.used-container {
+  background-color: #f9eff2;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.flowers-container {
+  border: 3px solid #f9eff2;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
 }
 .product-row {
   display: flex;
