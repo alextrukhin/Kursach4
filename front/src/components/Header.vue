@@ -14,7 +14,7 @@ import { RouterLink } from 'vue-router'
       </div>
       <div class="container">
         <div class="cart">
-          <RouterLink to="/bunch">
+          <RouterLink to="/create-bunch">
             <img style="height: 60px" src="../../bunch.svg" />
           </RouterLink>
         </div>
