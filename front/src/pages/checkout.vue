@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="details-container">
       <h2>Your details</h2>
       <div>
         <input
@@ -208,7 +208,6 @@ const submit = async () => {
   padding: 0;
   margin: auto;
 }
-
 .container {
   display: flex;
   flex-direction: row;
@@ -259,5 +258,9 @@ h2 {
   cursor: pointer;
   outline: none;
   border: none;
+}
+.details-container {
+  border-radius: 20px;
+  background: #f9eff2;
 }
 </style>
