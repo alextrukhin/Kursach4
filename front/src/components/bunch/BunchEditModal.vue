@@ -5,16 +5,16 @@
         <BunchContainer :products="bunchLocal.products" @update="updateProductsDebounced" />
         <span class="text">Drag in corner to delete</span>
       </div>
-      <div class="btn-container">
-        <button @click="emit('close')" class="btn text">
-          <img
-            src="../../../close.svg"
-            alt=""
-            style="width: 30px; height: 30px; margin: 0; padding: 0"
-          />
-        </button>
-      </div>
       <div class="bunch-edit-modal__right">
+        <div class="btn-container">
+          <button @click="emit('close')" class="btn text">
+            <img
+              src="../../../close.svg"
+              alt=""
+              style="width: 30px; height: 30px; margin: 0; padding: 0"
+            />
+          </button>
+        </div>
         <div class="used-container">
           <h3>Used products: - ${{ total }}</h3>
           <div>
@@ -114,6 +114,7 @@ watch(
   height: 100%;
   flex-grow: 1;
   overflow: hidden auto;
+  position: relative;
 }
 .used-container {
   background-color: #f9eff2;
@@ -170,6 +171,9 @@ h3 {
   flex-direction: row;
   align-items: center;
   justify-content: right;
+  position: sticky;
+  top: 0;
+  right: 0;
 }
 .btn {
   background-color: #f9eff2;
