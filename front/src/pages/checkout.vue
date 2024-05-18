@@ -5,6 +5,7 @@
         <h1>Total price of cart - ${{ productsStore.cartSum }}</h1>
       </div>
       <h2>Flowers in cart</h2>
+      <h3 v-if="!products?.length">Empty</h3>
       <div class="container">
         <div v-for="elem in products" :key="elem.productId">
           <FlowerCheckout
@@ -16,9 +17,10 @@
         </div>
       </div>
       <h2>Bunches in cart</h2>
+      <h3 v-if="!bunches?.length">Empty</h3>
       <div class="container">
         <div v-for="(bunch, index) in bunches" :key="index" class="product-card">
-          <BunchCartCard :bunch="bunch" :controls="false" />
+          <BunchCheckout :bunch="bunch" :controls="false" />
         </div>
       </div>
     </div>
@@ -29,6 +31,7 @@
           v-model="formState.client_firstname"
           placeholder="First name"
           autocomplete="given-name"
+          class="details input"
         />
         <div class="error" v-if="triedToSubmit && errors.client_firstname">
           {{ errors.client_firstname[0] }}
@@ -39,6 +42,7 @@
           v-model="formState.client_lastname"
           placeholder="Last name"
           autocomplete="family-name"
+          class="details input"
         />
         <div class="error" v-if="triedToSubmit && errors.client_lastname">
           {{ errors.client_lastname[0] }}
@@ -50,13 +54,20 @@
           type="text"
           placeholder="Address"
           autocomplete="shipping street-address"
+          class="details input"
         />
         <div class="error" v-if="triedToSubmit && errors.client_address">
           {{ errors.client_address[0] }}
         </div>
       </div>
       <div>
-        <input v-model="formState.client_phone" type="tel" placeholder="Phone" autocomplete="tel" />
+        <input
+          v-model="formState.client_phone"
+          type="tel"
+          placeholder="Phone"
+          autocomplete="tel"
+          class="details input"
+        />
         <div class="error" v-if="triedToSubmit && errors.client_phone">
           {{ errors.client_phone[0] }}
         </div>
@@ -67,32 +78,43 @@
           type="email"
           placeholder="Email"
           autocomplete="email"
+          class="details input"
         />
         <div class="error" v-if="triedToSubmit && errors.client_email">
           {{ errors.client_email[0] }}
         </div>
       </div>
       <div>
-        <select v-model="formState.payment_type">
-          <option value="cash">Cash</option>
-          <option value="card">Card</option>
-        </select>
+        <div class="dtls">
+          <select v-model="formState.payment_type" class="details select" id="select1">
+            <option value="cash" class="details option">Cash</option>
+            <option value="card" class="details option">Card</option>
+          </select>
+          <label for="select1" class="arrow"></label>
+        </div>
         <div class="error" v-if="triedToSubmit && errors.payment_type">
           {{ errors.payment_type[0] }}
         </div>
       </div>
       <div>
-        <select v-model="formState.delivery_type">
-          <option value="postman">Postman</option>
-          <option value="pickup">Pickup</option>
-          <option value="delivery">Delivery</option>
-        </select>
+        <div class="dtls">
+          <select v-model="formState.delivery_type" class="details select" id="select2">
+            <option value="postman" class="details option">Postman</option>
+            <option value="pickup" class="details option">Pickup</option>
+            <option value="delivery" class="details option">Delivery</option>
+          </select>
+          <label for="select2" class="arrow"></label>
+        </div>
         <div class="error" v-if="triedToSubmit && errors.delivery_type">
           {{ errors.delivery_type[0] }}
         </div>
       </div>
       <div>
-        <textarea v-model="formState.client_comments" placeholder="Comments"></textarea>
+        <textarea
+          v-model="formState.client_comments"
+          placeholder="Comments"
+          class="details textarea"
+        ></textarea>
         <div class="error" v-if="triedToSubmit && errors.client_comments">
           {{ errors.client_comments[0] }}
         </div>
@@ -107,7 +129,7 @@ import { useProductsStore } from '../stores/products'
 import { Order } from '@/types'
 import { z } from 'zod'
 import { useOrdersStore } from '@/stores/orders'
-import BunchCartCard from '@/components/BunchCartCard.vue'
+import BunchCheckout from '@/components/BunchCheckout.vue'
 import router from '@/router'
 import FlowerCheckout from '../components/FlowerCheckout.vue'
 const productsStore = useProductsStore()
@@ -239,6 +261,16 @@ h2 {
   line-height: normal;
   text-transform: uppercase;
 }
+h3 {
+  color: #370017;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: uppercase;
+}
 .btn {
   width: 350px;
   height: 70px;
@@ -262,5 +294,71 @@ h2 {
 .details-container {
   border-radius: 20px;
   background: #f9eff2;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  width: 380px;
+  padding-bottom: 5px;
+}
+.details {
+  width: 350px;
+  height: 50px;
+  margin: 5px auto;
+  border-radius: 10px;
+  border-style: none;
+  padding-left: 15px;
+  color: #370017;
+  text-align: left;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  outline: none;
+}
+.dtls {
+  width: 350px;
+  height: 50px;
+  margin: 5px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.dtls:hover {
+  cursor: pointer;
+}
+.select {
+  padding-right: 10px;
+  appearance: none;
+  outline: none;
+}
+.option {
+  background-color: #fff;
+}
+.option:checked {
+  background-color: #f9eff2;
+}
+.option:hover {
+  background-color: #efc1cf;
+}
+.textarea {
+  resize: vertical;
+  height: 150px;
+  padding-top: 10px;
+}
+.arrow {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
+  background-image: url('../../arrowPink.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 </style>
