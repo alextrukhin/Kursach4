@@ -4,13 +4,7 @@
       <div class="buy-container">
         <h1>Total price of cart - ${{ productsStore.cartSum }}</h1>
       </div>
-      <h2>Bunches</h2>
-      <div class="container">
-        <div v-for="(bunch, index) in bunches" :key="index" class="product-card">
-          <BunchCartCard :bunch="bunch" :controls="false" />
-        </div>
-      </div>
-      <h2>Products in cart</h2>
+      <h2>Flowers in cart</h2>
       <div class="container">
         <div v-for="elem in products" :key="elem.productId">
           <FlowerCheckout
@@ -19,6 +13,12 @@
             :price="elem.product?.price"
             :quantity="elem.quantity"
           />
+        </div>
+      </div>
+      <h2>Bunches in cart</h2>
+      <div class="container">
+        <div v-for="(bunch, index) in bunches" :key="index" class="product-card">
+          <BunchCartCard :bunch="bunch" :controls="false" />
         </div>
       </div>
     </div>

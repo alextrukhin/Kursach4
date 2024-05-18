@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router'
 </script>
 <template>
   <header>
@@ -25,7 +25,7 @@ import { RouterLink } from "vue-router";
         </div>
         <div class="cart">
           <RouterLink to="/cart">
-            <img style="height: 60px" src="../../Cart.svg" />
+            <img style="height: 60px; margin: 5px" src="../../Cart.svg" />
           </RouterLink>
         </div>
       </div>
@@ -70,7 +70,7 @@ header {
 }
 h1 {
   color: #370017;
-  font-family: "Yeseva One";
+  font-family: 'Yeseva One';
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
