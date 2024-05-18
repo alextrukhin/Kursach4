@@ -15,8 +15,18 @@
             />
           </button>
         </div>
+        <h3>Used products: - ${{ total }}</h3>
         <div>
-          <h3>Products</h3>
+          <div v-for="product in usedProducts" class="product-row">
+            <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
+            <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
+            <div class="text">
+              {{ product.quantity }} x ${{ product.price }} = {{ product.quantity * product.price }}
+            </div>
+          </div>
+        </div>
+        <h3>Products</h3>
+        <div>
           <div v-for="product in flowers" @click="addProduct(product)" class="product-row">
             <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
             <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
@@ -50,6 +60,15 @@ const bunchLocal = ref(props.bunch)
 
 const flowers = computed(() =>
   productsStore.products.filter((product) => product.type === 'Flower')
+)
+const usedProducts = computed(() =>
+  Array.from(new Set(bunchLocal.value.products?.map((product) => product.id))).map((id) => ({
+    ...productsStore.getProductByID(id)!,
+    quantity: bunchLocal.value.products?.filter((product) => product.id === id).length ?? 1
+  }))
+)
+const total = computed(() =>
+  usedProducts.value.reduce((acc, product) => acc + product.price * product.quantity, 0)
 )
 
 const addProduct = (product: Product) => {
