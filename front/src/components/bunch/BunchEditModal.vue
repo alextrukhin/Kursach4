@@ -102,9 +102,7 @@ watch(
   overflow: hidden;
 }
 .bunch-edit-modal__left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 60px;
   justify-content: center;
 }
 .bunch-edit-modal__right {
