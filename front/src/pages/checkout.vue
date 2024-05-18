@@ -119,7 +119,7 @@ const formSchema = z.object({
   client_address: z.string().min(1),
   client_phone: z.string().min(1),
   client_email: z.string().min(1),
-  client_comments: z.string().min(1),
+  client_comments: z.string(),
   payment_type: z.enum(['cash', 'card']),
   delivery_type: z.enum(['postman', 'pickup', 'delivery'])
 })
