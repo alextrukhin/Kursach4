@@ -53,12 +53,30 @@ export const useOrdersStore = defineStore('orders', () => {
     await fetchOrders()
   }
 
+  async function deleteOrder(order: Order) {
+    const res = await fetch(`http://localhost:8080/deleteOrder`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: order.id })
+    })
+    if (res.ok) {
+      orders.value = orders.value.filter((o) => o.id !== order.id)
+    } else {
+      alert('Failed to delete order')
+      return false
+    }
+    return true
+  }
+
   return {
     init,
     orders,
     ordersFetched,
     placeOrder,
     updateOrder,
-    sendEmailWithCurrentStatus
+    sendEmailWithCurrentStatus,
+    deleteOrder
   }
 })

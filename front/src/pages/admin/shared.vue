@@ -38,7 +38,7 @@ const emit = defineEmits<{
   width: 300px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden auto;
 }
 .admin-list-sidebar ul {
   width: 100%;

@@ -38,13 +38,8 @@ public class CourseworkApplication {
 
         ProductBuilder productBuilder = new ProductBuilder();
 
-        int highestId = 0;
-        for (Product product : productsStore.data) {
-            if (product.getId() > highestId) {
-                highestId = product.getId();
-            }
-        }
-        productBuilder.setId(highestId + 1)
+
+        productBuilder.setId(0)
                 .setName(datamap.get("name").toString())
                 .setPrice(Double.parseDouble(datamap.get("price").toString()))
                 .setColor(datamap.get("color").toString())
@@ -99,6 +94,14 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(gson.toJson(updatedUpdated), HttpStatus.OK);
     }
 
+    @DeleteMapping(path = "/deleteProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<Object> deleteProduct(@RequestBody Map<String, Object> datamap) {
+        int id = Integer.parseInt(datamap.get("id").toString());
+        productsStore.removeProduct(id, ordersStore.getOrders());
+        return new ResponseEntity<Object>(HttpStatus.OK);
+    }
+
     @GetMapping(path = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> getOrders() {
@@ -112,20 +115,14 @@ public class CourseworkApplication {
     public ResponseEntity<Object> addOrder(@RequestBody Map<String, Object> datamap) {
         OrderBuilder orderBuilder = new OrderBuilder();
 
-        int highestId = 0;
-        for (Order order : ordersStore.data) {
-            if (order.getId() > highestId) {
-                highestId = order.getId();
-            }
-        }
-        orderBuilder.setId(highestId + 1);
-        orderBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("products")).stream().map(p -> {
+        orderBuilder.setId(0)
+        .setProducts(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("products")).stream().map(p -> {
             OrderProduct orderProduct = new OrderProduct();
             orderProduct.setProductId(Integer.parseInt(p.get("productId").toString()));
             orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
             return orderProduct;
-        }).collect(Collectors.toList()));
-        orderBuilder.setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
+        }).collect(Collectors.toList()))
+        .setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
             OrderBunch orderProduct = new OrderBunch();
             BunchBuilder bunchBuilder = new BunchBuilder();
             LinkedHashMap<String, ?> bunch = (LinkedHashMap<String, ?>) p.get("bunch");
@@ -143,18 +140,18 @@ public class CourseworkApplication {
             orderProduct.setBunch(bunchBuilder.build());
             orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
             return orderProduct;
-        }).collect(Collectors.toList()));
-        orderBuilder.setStatus(datamap.get("status").toString());
-        orderBuilder.setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()));
-        orderBuilder.setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()));
-        orderBuilder.setClient_firstname(datamap.get("client_firstname").toString());
-        orderBuilder.setClient_lastname(datamap.get("client_lastname").toString());
-        orderBuilder.setClient_address(datamap.get("client_address").toString());
-        orderBuilder.setClient_phone(datamap.get("client_phone").toString());
-        orderBuilder.setClient_email(datamap.get("client_email").toString());
-        orderBuilder.setClient_comments(datamap.get("client_comments").toString());
-        orderBuilder.setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()));
-        orderBuilder.setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
+        }).collect(Collectors.toList()))
+        .setStatus(datamap.get("status").toString())
+        .setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()))
+        .setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()))
+        .setClient_firstname(datamap.get("client_firstname").toString())
+        .setClient_lastname(datamap.get("client_lastname").toString())
+        .setClient_address(datamap.get("client_address").toString())
+        .setClient_phone(datamap.get("client_phone").toString())
+        .setClient_email(datamap.get("client_email").toString())
+        .setClient_comments(datamap.get("client_comments").toString())
+        .setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()))
+        .setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
 
         Order order = orderBuilder.build();
         ordersStore.addOrder(order);
@@ -264,6 +261,14 @@ public class CourseworkApplication {
             throw new RuntimeException(e);
         }
 
+        return new ResponseEntity<Object>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/deleteOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<Object> deleteOrder(@RequestBody Map<String, Object> datamap) {
+        int id = Integer.parseInt(datamap.get("id").toString());
+        ordersStore.removeOrder(id);
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 }

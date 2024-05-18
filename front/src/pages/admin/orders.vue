@@ -43,6 +43,7 @@
           </div>
           <form id="order" @submit.prevent="submit">
             <h2>Order #{{ order.id }}</h2>
+            <button v-if="order.id" type="button" @click="deleteOrder">Delete order</button>
             <div>
               <label for="client_firstname">First name</label>
               <input
@@ -135,7 +136,7 @@ import { computed, ref, watch } from 'vue'
 import Layout from './shared.vue'
 import { useOrdersStore } from '../../stores/orders'
 import { useProductsStore } from '../../stores/products'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import type { Order } from '../../types'
 import CartCard from '@/components/CartCard.vue'
 import BunchCard from '@/components/bunch/BunchCard.vue'
@@ -143,6 +144,7 @@ import BunchCard from '@/components/bunch/BunchCard.vue'
 const ordersStore = useOrdersStore()
 const productsStore = useProductsStore()
 const route = useRoute()
+const router = useRouter()
 
 ordersStore.init()
 
@@ -185,6 +187,10 @@ const sendEmailWithCurrentStatus = () => {
 const refreshOrder = (newOrderId: number | null) => {
   const orderData = ordersStore.orders.find((order) => order.id === newOrderId)
   order.value = orderData ? { ...orderData } : null
+}
+
+const deleteOrder = async () => {
+  if (await ordersStore.deleteOrder(order.value!)) router.push('/admin/orders')
 }
 
 watch(orderId, refreshOrder, { immediate: true })

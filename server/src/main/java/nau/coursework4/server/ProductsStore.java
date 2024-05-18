@@ -27,16 +27,34 @@ public class ProductsStore {
         }
         return null;
     }
-    public void addProduct(Product product) {
-        data.add(product);
+    public Product addProduct(Product product) {
+        int highestId = 0;
+        for (Product p : data) {
+            if (p.getId() > highestId) {
+                highestId = p.getId();
+            }
+        }
+        Product newProduct = new ProductBuilder(product)
+                .setId(highestId + 1)
+                .build();
+        data.add(newProduct);
         saveListToFile(data, "products.json");
+        return newProduct;
     }
-    public void updateProduct(Product product) {
+    public Product updateProduct(Product product) {
         data.removeIf(p -> p.getId() == product.getId());
         data.add(product);
         saveListToFile(data, "products.json");
+        return product;
     }
-    public void removeProduct(Integer id) {
+    public void removeProduct(Integer id, List<Order> orders) {
+        for (Order order : orders) {
+            for (OrderProduct orderProduct : order.getProducts()) {
+                if (orderProduct.getProductId() == id) {
+                    throw new RuntimeException("Product is in use");
+                }
+            }
+        }
         data.removeIf(product -> product.getId() == id);
         saveListToFile(data, "products.json");
     }

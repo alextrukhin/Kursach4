@@ -26,6 +26,7 @@
         <form v-if="product" id="product" :key="product.id" @submit.prevent="submit">
           <h2 v-if="product.id">Product #{{ product.id }}</h2>
           <h2 v-else>Create product</h2>
+          <button v-if="product.id" type="button" @click="deleteProduct">Delete product</button>
           <div>
             <label for="name">Name</label>
             <input id="name" type="text" v-model="product.name" placeholder="Name" />
@@ -153,6 +154,12 @@ const submit = async () => {
   } else {
     const newProduct = await productsStore.createProduct(product.value!)
     router.push(`/admin/products/${newProduct.id}`)
+  }
+}
+
+const deleteProduct = async () => {
+  if (product.value!.id) {
+    if (await productsStore.deleteProduct(product.value!.id)) router.push('/admin/products')
   }
 }
 

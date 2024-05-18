@@ -42,9 +42,11 @@ public class Sendgrid {
             // Send the request and get the response
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+            if(response.statusCode() != 202) throw new RuntimeException("Failed to send email");
+
             // Print status code and response body
-            System.out.println("Status Code: " + response.statusCode());
-            System.out.println("Response Body: " + response.body());
+            System.out.println("[Sendgrid] Status Code: " + response.statusCode());
+            System.out.println("[Sendgrid] Response Body: " + response.body());
         } catch (Exception e) {
             e.printStackTrace();
         }

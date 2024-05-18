@@ -27,14 +27,23 @@ public class OrdersStore {
         }
         return null;
     }
-    public void addOrder(Order product) {
-        data.add(product);
+    public Order addOrder(Order order) {
+        int highestId = 0;
+        for (Order o : data) {
+            if (o.getId() > highestId) {
+                highestId = o.getId();
+            }
+        }
+        Order orderAdded = new OrderBuilder(order).setId(highestId + 1).build();
+        data.add(orderAdded);
         saveListToFile(data, "orders.json");
+        return orderAdded;
     }
-    public void updateOrder(Order product) {
+    public Order updateOrder(Order product) {
         data.removeIf(p -> p.getId() == product.getId());
         data.add(product);
         saveListToFile(data, "orders.json");
+        return product;
     }
     public void removeOrder(Integer id) {
         data.removeIf(product -> product.getId() == id);

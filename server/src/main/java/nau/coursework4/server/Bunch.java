@@ -1,14 +1,16 @@
 package nau.coursework4.server;
 
+import jakarta.annotation.Nullable;
+
 import java.util.List;
 
 public class Bunch {
-    private int id;
+    private Integer id;
     private List<BunchProduct> products;
 
     public Bunch() {
     }
-    public Bunch(int id, List<BunchProduct> products) {
+    public Bunch(@Nullable Integer id, List<BunchProduct> products) {
         this.id = id;
         this.products = products;
     }

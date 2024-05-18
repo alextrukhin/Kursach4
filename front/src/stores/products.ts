@@ -180,6 +180,22 @@ export const useProductsStore = defineStore('products', () => {
       return newProduct
     }
   }
+  async function deleteProduct(id: number) {
+    const res = await fetch(`http://localhost:8080/deleteProduct`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id })
+    })
+    if (res.ok) {
+      products.value = products.value.filter((el) => el.id !== id)
+    } else {
+      alert('Failed to delete product')
+      return false
+    }
+    return true
+  }
 
   return {
     init,
@@ -194,6 +210,7 @@ export const useProductsStore = defineStore('products', () => {
     uncartProduct,
     cartChangeProductQuantity,
     createProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
   }
 })
