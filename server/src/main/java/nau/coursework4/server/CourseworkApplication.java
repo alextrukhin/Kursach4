@@ -14,45 +14,13 @@ import java.util.stream.Collectors;
 import static nau.coursework4.server.Sendgrid.sendEmail;
 
 @Controller
-@RestController
 public class CourseworkApplication {
     private final FlowersStore flowersStore = FlowersStoreSingleton.getInstance();
-    private final BunchesStore bunchesStore = BunchesStoreSingleton.getInstance();
     private final OrdersStore ordersStore = OrdersStoreSingleton.getInstance();
 
     @GetMapping("/")
     public String index() {
         return "Greetings from Spring Boot!";
-    }
-
-
-    @GetMapping(path = "/bunches", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:5173")
-    public ResponseEntity<Object> getBunches() {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        return new ResponseEntity<Object>(gson.toJson(bunchesStore.data), HttpStatus.OK);
-    }
-
-    @PostMapping(path = "/addBunch", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:5173")
-    public ResponseEntity<Object> addBunch(@RequestBody Map<String, Object> datamap) {
-        BunchBuilder bunchBuilder = new BunchBuilder();
-
-        int highestId = 0;
-        for (Bunch bunch : bunchesStore.data) {
-            if (bunch.getId() > highestId) {
-                highestId = bunch.getId();
-            }
-        }
-
-        bunchBuilder.setId(highestId + 1);
-        bunchBuilder.setProducts((List<BunchProduct>) datamap.get("products"));
-
-        Bunch product = bunchBuilder.build();
-
-        bunchesStore.addBunch(product);
-        return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
     @GetMapping(path = "/flowers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -151,12 +119,20 @@ public class CourseworkApplication {
             sendEmail(
                     order.getClient_email(),
                     "New order: #" + order.getId(),
-                    "Your order content " + order.getProducts().stream()
+                    "Your order content:\\n\\nProducts:\\n" + order.getProducts().stream()
                             .map(p -> {
                                 Product product = flowersStore.getProductById(p.getProductId());
-                                return product.getName() + " " + product.getColor() + " " + product.getSeasoning() + " " + product.getPrice() + " x " + p.getQuantity();
+                                return product.getName() + " " + product.getColor() + " - $" + product.getPrice() + " x " + p.getQuantity();
                             })
-                            .collect(Collectors.joining(","))
+                            .collect(Collectors.joining("\\n")) + "\\n\\nCustom bunches:\\n" + order.getBunches().stream()
+                            .map(bunch -> bunch.getQuantity() + "x:\\n" + bunch.getBunch().getProducts().stream()
+                                    .map(p -> {
+                                        Product product = flowersStore.getProductById(p.getId());
+                                        return product.getName() + " " + product.getColor() + " - $" + product.getPrice() + ",";
+                                    })
+                                    .collect(Collectors.joining("\\n"))
+                            )
+                            .collect(Collectors.joining("\\n"))
             );
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -189,7 +165,7 @@ public class CourseworkApplication {
                 bunchBuilder.setId(Integer.parseInt(((LinkedHashMap<String, ?>) p.get("bunch")).get("id").toString()));
                 bunchBuilder.setProducts(((ArrayList<LinkedHashMap<String, ?>>) ((LinkedHashMap<String, ?>) p.get("bunch")).get("products")).stream().map(bp -> {
                     BunchProduct bunchProduct = new BunchProduct();
-                    bunchProduct.setId(Integer.parseInt(bp.get("productId").toString()));
+                    bunchProduct.setId(Integer.parseInt(bp.get("id").toString()));
                     bunchProduct.setX(Integer.parseInt(bp.get("x").toString()));
                     bunchProduct.setY(Integer.parseInt(bp.get("y").toString()));
                     return bunchProduct;
@@ -239,7 +215,7 @@ public class CourseworkApplication {
         ordersStore.updateOrder(orderBuilder.build());
 
         try {
-            sendEmail(order.getClient_email(), "Order status changed", "Order status changed to " + datamap.get("status").toString());
+            sendEmail(order.getClient_email(), "Order #" + order.getId() + " status changed", "Order status changed to " + datamap.get("status").toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
