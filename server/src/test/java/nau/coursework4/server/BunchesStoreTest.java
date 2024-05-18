@@ -7,11 +7,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BunchesStoreTest {
-    private final FlowersStore flowersStore = FlowersStoreSingleton.getInstance();
+    private final ProductsStore productsStore = ProductsStoreSingleton.getInstance();
 
     @Test
     void getProducts() {
-        List<Product> products = flowersStore.getProducts();
+        List<Product> products = productsStore.getProducts();
         assertNotNull(products);
     }
 

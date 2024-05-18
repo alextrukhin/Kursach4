@@ -10,9 +10,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlowersStore {
+public class ProductsStore {
     List<Product> data = new ArrayList<Product>();
-    public FlowersStore() {
+    public ProductsStore() {
         data = readFromFile("products.json");
     }
 

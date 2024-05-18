@@ -6,7 +6,6 @@ import { z } from 'zod'
 export const useProductsStore = defineStore('products', () => {
   const productsFetched = ref(false)
   const products = ref<Product[]>([])
-  const bunches = ref<Bunch[]>([])
   const carted = reactive<{
     content: {
       products: { productId: number; quantity: number }[]
@@ -96,18 +95,6 @@ export const useProductsStore = defineStore('products', () => {
         quantity: number
       }
     > = []
-    carted.content.bunches
-      .map((el) => ({
-        ...bunches.value.find((bunch) => bunch.id && bunch.id === el.bunch.id),
-        quantity: el.quantity
-      }))
-      .map((el) => ({
-        ...el,
-        products: el.products?.map((p) => ({
-          product: products.value.find((prod) => prod.id == p.id),
-          ...p
-        }))
-      }))
     return toReturn
   })
   const cartSum = computed(() => {
@@ -165,10 +152,38 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
+  async function createProduct(product: Product) {
+    const res = await fetch(`http://localhost:8080/addProduct`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    })
+    if (res.ok) {
+      const newProduct = await res.json()
+      products.value.push(newProduct)
+      return newProduct
+    }
+  }
+  async function updateProduct(product: Product) {
+    const res = await fetch(`http://localhost:8080/updateProduct`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    })
+    if (res.ok) {
+      const newProduct = await res.json()
+      products.value.push(newProduct)
+      return newProduct
+    }
+  }
+
   return {
     init,
     products,
-    bunches,
     carted,
     cartedProducts,
     cartedBunches,
@@ -177,6 +192,8 @@ export const useProductsStore = defineStore('products', () => {
     getProductsByID,
     cartProduct,
     uncartProduct,
-    cartChangeProductQuantity
+    cartChangeProductQuantity,
+    createProduct,
+    updateProduct
   }
 })

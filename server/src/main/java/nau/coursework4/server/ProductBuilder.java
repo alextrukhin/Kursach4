@@ -11,6 +11,21 @@ public class ProductBuilder {
     private String image;
     private String image_single;
 
+    public ProductBuilder() {
+    }
+
+    public ProductBuilder(Product product) {
+        this.id = product.getId();
+        this.name = product.getName();
+        this.color = product.getColor();
+        this.type = product.getType();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.seasoning = product.getSeasoning();
+        this.image = product.getImage();
+        this.image_single = product.getImageSingle();
+    }
+
     public ProductBuilder setId(int id) {
         this.id = id;
         return this;
@@ -27,6 +42,7 @@ public class ProductBuilder {
     }
 
     public ProductBuilder setType(String type) {
+        this.type = Product.Type.valueOf(type);
         return this;
     }
 

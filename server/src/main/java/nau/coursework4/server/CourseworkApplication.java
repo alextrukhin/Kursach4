@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -13,9 +12,9 @@ import java.util.stream.Collectors;
 
 import static nau.coursework4.server.Sendgrid.sendEmail;
 
-@Controller
+@RestController
 public class CourseworkApplication {
-    private final FlowersStore flowersStore = FlowersStoreSingleton.getInstance();
+    private final ProductsStore productsStore = ProductsStoreSingleton.getInstance();
     private final OrdersStore ordersStore = OrdersStoreSingleton.getInstance();
 
     @GetMapping("/")
@@ -28,31 +27,76 @@ public class CourseworkApplication {
     public ResponseEntity<Object> getCatalog() {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        return new ResponseEntity<Object>(gson.toJson(flowersStore.data), HttpStatus.OK);
+        return new ResponseEntity<Object>(gson.toJson(productsStore.data), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/addFlower", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/addProduct", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> addProduct(@RequestBody Map<String, Object> datamap) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
         ProductBuilder productBuilder = new ProductBuilder();
 
         int highestId = 0;
-        for (Product product : flowersStore.data) {
+        for (Product product : productsStore.data) {
             if (product.getId() > highestId) {
                 highestId = product.getId();
             }
         }
-        productBuilder.setId(highestId + 1);
-        productBuilder.setName(datamap.get("name").toString());
-        productBuilder.setPrice(Double.parseDouble(datamap.get("price").toString()));
-        productBuilder.setColor(datamap.get("color").toString());
-        productBuilder.setDescription(datamap.get("description").toString());
-        productBuilder.setSeasoning(datamap.get("seasoning").toString());
+        productBuilder.setId(highestId + 1)
+                .setName(datamap.get("name").toString())
+                .setPrice(Double.parseDouble(datamap.get("price").toString()))
+                .setColor(datamap.get("color").toString())
+                .setDescription(datamap.get("description").toString())
+                .setType(datamap.get("type").toString())
+                .setSeasoning(datamap.get("seasoning").toString());
+        if (datamap.get("image") != null) {
+            productBuilder.setImage(datamap.get("image").toString());
+        }
+        if (datamap.get("image_single") != null) {
+            productBuilder.setImageSingle(datamap.get("image_single").toString());
+        }
 
         Product product = productBuilder.build();
 
-        flowersStore.addProduct(product);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+        productsStore.addProduct(product);
+        return new ResponseEntity<Object>(gson.toJson(product), HttpStatus.OK);
+    }
+
+    @PatchMapping(path = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<Object> updateProduct(@RequestBody Map<String, Object> datamap) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        Product product = productsStore.getProductById(Integer.parseInt(datamap.get("id").toString()));
+        if (product == null) {
+            return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+        }
+        ProductBuilder productBuilder = new ProductBuilder(product);
+
+        if (datamap.get("name") != null)
+            productBuilder.setName(datamap.get("name").toString());
+        if (datamap.get("price") != null)
+            productBuilder.setPrice(Double.parseDouble(datamap.get("price").toString()));
+        if (datamap.get("color") != null)
+            productBuilder.setColor(datamap.get("color").toString());
+        if (datamap.get("description") != null)
+            productBuilder.setDescription(datamap.get("description").toString());
+        if (datamap.get("type") != null)
+            productBuilder.setType(datamap.get("type").toString());
+        if (datamap.get("seasoning") != null)
+            productBuilder.setSeasoning(datamap.get("seasoning").toString());
+        if (datamap.get("image") != null)
+            productBuilder.setImage(datamap.get("image").toString());
+        if (datamap.get("image_single") != null)
+            productBuilder.setImageSingle(datamap.get("image_single").toString());
+
+        Product updatedUpdated = productBuilder.build();
+
+        productsStore.updateProduct(updatedUpdated);
+        return new ResponseEntity<Object>(gson.toJson(updatedUpdated), HttpStatus.OK);
     }
 
     @GetMapping(path = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -121,13 +165,13 @@ public class CourseworkApplication {
                     "New order: #" + order.getId(),
                     "Your order content:\\n\\nProducts:\\n" + order.getProducts().stream()
                             .map(p -> {
-                                Product product = flowersStore.getProductById(p.getProductId());
+                                Product product = productsStore.getProductById(p.getProductId());
                                 return product.getName() + " " + product.getColor() + " - $" + product.getPrice() + " x " + p.getQuantity();
                             })
                             .collect(Collectors.joining("\\n")) + "\\n\\nCustom bunches:\\n" + order.getBunches().stream()
                             .map(bunch -> bunch.getQuantity() + "x:\\n" + bunch.getBunch().getProducts().stream()
                                     .map(p -> {
-                                        Product product = flowersStore.getProductById(p.getId());
+                                        Product product = productsStore.getProductById(p.getId());
                                         return product.getName() + " " + product.getColor() + " - $" + product.getPrice() + ",";
                                     })
                                     .collect(Collectors.joining("\\n"))

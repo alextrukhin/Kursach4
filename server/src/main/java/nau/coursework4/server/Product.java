@@ -29,6 +29,8 @@ public class Product {
         this.description = description;
         this.price = price;
         this.seasoning = seasoning;
+        this.image = image;
+        this.image_single = image_single;
     }
 
     @SerializedName("id")
@@ -73,6 +75,6 @@ public class Product {
 
     @SerializedName("image_single")
     public String getImageSingle() {
-        return image;
+        return image_single;
     }
 }
