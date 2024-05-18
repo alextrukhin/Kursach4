@@ -110,8 +110,8 @@ onUnmounted(() => {
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+  border: 3px solid #f9eff2;
   border-radius: 10px;
-  border: 1px solid #efc1cf;
 }
 .product-card {
   width: 50px;
