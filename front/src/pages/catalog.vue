@@ -1,6 +1,6 @@
 <template>
   <div class="buttons-container">
-    <div class="container" style="gap: 8px; padding: 0 8px">
+    <div class="container" style="gap: 8px; padding: 8px">
       <div
         v-for="colorsOption in colorsOptions"
         :key="colorsOption.value"
