@@ -4,6 +4,19 @@
       <button>Dashboard</button>
     </RouterLink>
     <Layout :items="ordersFiltered">
+      <template #list-header>
+        <div>
+          <div class="left">
+            <p>id</p>
+          </div>
+          <div class="center">
+            <p>client</p>
+          </div>
+          <div class="right">
+            <p>status</p>
+          </div>
+        </div>
+      </template>
       <template #item="{ id, client_firstname, client_lastname, status }">
         <RouterLink :to="`/admin/orders/${id}`">
           <div class="left">

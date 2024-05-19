@@ -7,6 +7,19 @@
       <button>+New product</button>
     </RouterLink>
     <Layout :items="ordersFiltered">
+      <template #list-header>
+        <div>
+          <div class="left">
+            <p>id</p>
+          </div>
+          <div class="center">
+            <p>name</p>
+          </div>
+          <div class="right">
+            <p>price</p>
+          </div>
+        </div>
+      </template>
       <template #item="{ id, name, price }">
         <RouterLink :to="`/admin/products/${id}`">
           <div class="left">

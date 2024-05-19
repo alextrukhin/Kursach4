@@ -2,6 +2,9 @@
   <div id="admin-list-layout">
     <div class="admin-list-sidebar">
       <ul>
+        <li>
+          <slot name="list-header"></slot>
+        </li>
         <li v-for="item in items" :key="item.id" @click="emit('itemClick', item)">
           <slot name="item" v-bind="item"></slot>
         </li>
@@ -51,7 +54,8 @@ const emit = defineEmits<{
   width: 100%;
   height: 50px;
 }
-.admin-list-sidebar li a {
+.admin-list-sidebar li a,
+.admin-list-sidebar li div {
   width: 100%;
   height: 100%;
   display: flex;
