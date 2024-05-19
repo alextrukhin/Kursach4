@@ -108,13 +108,14 @@ const filteredProducts = computed(() => {
   padding: 0;
 }
 .buttons-container .container {
+  height: 70px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 .buttons-container .container .color {
   display: flex;
-  width: 100%;
+  width: min(60px, 100%);
   height: auto;
   flex-shrink: 1;
   aspect-ratio: 1 / 1;
