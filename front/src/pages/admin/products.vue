@@ -100,20 +100,29 @@
                 <option value="greenhouse">🏡 Greenhouse</option>
               </select>
             </div>
-            <div>
-              <h2>Main image</h2>
-              <label for="image"><img :src="product.image" /></label>
-              <input id="image" type="file" @change="uploadImage($event, 'image')" class="text" />
-            </div>
-            <div>
-              <h2>Single image</h2>
-              <label for="image"><img :src="product.image_single" /></label>
-              <input
-                id="image_single"
-                type="file"
-                @change="uploadImage($event, 'image_single')"
-                class="text"
-              />
+            <div class="two-images">
+              <div class="two-images__image-block">
+                <h2>Main image</h2>
+                <label for="image"><img :src="product.image" /></label>
+                <input
+                  id="image"
+                  type="file"
+                  @change="uploadImage($event, 'image')"
+                  class="text"
+                  style="max-width: 90%"
+                />
+              </div>
+              <div class="two-images__image-block">
+                <h2>Single image</h2>
+                <label for="image_single"><img :src="product.image_single" /></label>
+                <input
+                  id="image_single"
+                  type="file"
+                  @change="uploadImage($event, 'image_single')"
+                  class="text"
+                  style="max-width: 90%"
+                />
+              </div>
             </div>
             <button type="submit" class="button">{{ product.id ? 'Update' : 'Create' }}</button>
           </form>
@@ -185,11 +194,7 @@ const uploadImage = async (event: Event, field: 'image' | 'image_single') => {
     return
   }
   const base64 = await fileToBase64(target.files[0])
-  if (field === 'image') {
-    product.value!.image = base64
-  } else {
-    product.value!.image_single = base64
-  }
+  product.value![field] = base64
 }
 
 const submit = async () => {
@@ -361,5 +366,24 @@ h2 {
   font-weight: 300;
   line-height: normal;
   padding: 0;
+}
+
+.two-images {
+  height: 250px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.two-images__image-block {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.two-images__image-block img {
+  object-fit: contain;
+  height: 150px;
 }
 </style>

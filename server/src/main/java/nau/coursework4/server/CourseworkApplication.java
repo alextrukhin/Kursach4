@@ -79,9 +79,7 @@ public class CourseworkApplication {
             productBuilder.setImageSingle(datamap.get("image_single").toString());
         }
 
-        Product product = productBuilder.build();
-
-        productsStore.addProduct(product);
+        Product product = productsStore.addProduct(productBuilder.build());
         return new ResponseEntity<Object>(gson.toJson(product), HttpStatus.OK);
     }
 
@@ -202,8 +200,7 @@ public class CourseworkApplication {
                 .setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()))
                 .setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
 
-        Order order = orderBuilder.build();
-        ordersStore.addOrder(order);
+        Order order = ordersStore.addOrder(orderBuilder.build());
 
         try {
             sendEmail(

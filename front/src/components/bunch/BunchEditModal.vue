@@ -16,10 +16,13 @@
           </button>
         </div>
         <div class="used-container">
-          <h3>Used products: - ${{ total }}</h3>
+          <h3>Used flowers: ${{ total }}</h3>
           <div>
             <div v-for="product in usedProducts" class="product-row">
-              <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
+              <img
+                :src="product.image_single ?? product.image"
+                style="border-radius: 3px; margin-right: 10px"
+              />
               <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
               <div class="text" style="padding-right: 15px">
                 {{ product.quantity }} x ${{ product.price }} =
@@ -32,7 +35,10 @@
           <h3>Products</h3>
           <div>
             <div v-for="product in flowers" @click="addProduct(product)" class="product-row">
-              <img :src="product.image" style="border-radius: 3px; margin-right: 10px" />
+              <img
+                :src="product.image_single ?? product.image"
+                style="border-radius: 3px; margin-right: 10px"
+              />
               <div style="flex-grow: 1; text-align: left" class="text">{{ product.name }}</div>
               <div class="text" style="padding-right: 15px">${{ product.price }}</div>
             </div>

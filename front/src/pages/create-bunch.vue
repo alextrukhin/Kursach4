@@ -14,7 +14,7 @@
         <h3>Used flowers - ${{ total }}</h3>
         <div class="products-list">
           <div v-for="product in usedProducts" class="product-row">
-            <img :src="product.image" />
+            <img :src="product.image_single ?? product.image" />
             <div style="flex-grow: 1; text-align: left; padding-left: 15px" class="text">
               {{ product.name }}
             </div>
@@ -30,7 +30,7 @@
         <h3>Flowers</h3>
         <div class="products-list">
           <div v-for="product in flowers" @click="addProduct(product)" class="product-row">
-            <img :src="product.image" />
+            <img :src="product.image_single ?? product.image" />
             <div style="flex-grow: 1; text-align: left; padding-left: 15px" class="text">
               {{ product.name }}
             </div>

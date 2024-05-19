@@ -1,14 +1,12 @@
 <template>
   <div class="buttons-container">
-    <div class="container">
+    <div class="container" style="gap: 8px; padding: 0 8px">
       <div
         v-for="colorsOption in colorsOptions"
         :key="colorsOption.value"
         class="color"
         :style="{ 'background-color': colorsOption.label }"
-        @click="
-          color = color === colorsOption.value ? null : colorsOption.value
-        "
+        @click="color = color === colorsOption.value ? null : colorsOption.value"
       >
         <svg
           v-if="colorsOption.value === color"
@@ -41,11 +39,7 @@
     </div>
   </div>
   <div v-if="filteredProducts.length" class="products-container">
-    <div
-      v-for="product in filteredProducts"
-      :key="product.id"
-      class="product-card"
-    >
+    <div v-for="product in filteredProducts" :key="product.id" class="product-card">
       <RouterLink :to="`/flower/${product.id}`">
         <CatalogCard
           :photoUrl="product.image || ''"
@@ -60,54 +54,50 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useProductsStore } from "../stores/products";
-import CatalogCard from "../components/CatalogCard.vue";
-import { computed, ref } from "vue";
-const productsStore = useProductsStore();
+import { useProductsStore } from '../stores/products'
+import CatalogCard from '../components/CatalogCard.vue'
+import { computed, ref } from 'vue'
+const productsStore = useProductsStore()
 
 const labels: Record<string, string> = {
-  summer: "🌞 Summer",
-  spring: "🌸 Spring",
-  greenhouse: "🏡 Greenhouse",
-};
+  summer: '🌞 Summer',
+  spring: '🌸 Spring',
+  greenhouse: '🏡 Greenhouse'
+}
 const colors: Record<string, string> = {
-  Red: "#ef6363",
-  Pink: "#fd84be",
-  Orange: "#ffad80",
-  Yellow: "#ffe380",
-  White: "#FFFFFF",
-};
+  Red: '#ef6363',
+  Pink: '#fd84be',
+  Orange: '#ffad80',
+  Yellow: '#ffe380',
+  White: '#FFFFFF',
+  Green: '#89E09C'
+}
 
-const season = ref<string | null>("");
-const color = ref<string | null>("");
-const search = ref("");
+const season = ref<string | null>('')
+const color = ref<string | null>('')
+const search = ref('')
 
 const seasonOptions = computed(() =>
-  Array.from(
-    new Set(productsStore.products.map((product) => product.seasoning))
-  ).map((season) => ({
+  Array.from(new Set(productsStore.products.map((product) => product.seasoning))).map((season) => ({
     value: season,
-    label: labels[season] ?? null,
+    label: labels[season] ?? null
   }))
-);
+)
 const colorsOptions = computed(() =>
-  Array.from(
-    new Set(productsStore.products.map((product) => product.color))
-  ).map((color) => ({
+  Array.from(new Set(productsStore.products.map((product) => product.color))).map((color) => ({
     value: color,
-    label: colors[color],
+    label: colors[color]
   }))
-);
+)
 const filteredProducts = computed(() => {
   return productsStore.products.filter((product) => {
-    const isSeason = !season.value || product.seasoning === season.value;
+    const isSeason = !season.value || product.seasoning === season.value
     const isSearch =
-      !search.value ||
-      product.name.toLowerCase().includes(search.value.toLowerCase());
-    const isColor = !color.value || product.color === color.value;
-    return isSeason && isSearch && isColor;
-  });
-});
+      !search.value || product.name.toLowerCase().includes(search.value.toLowerCase())
+    const isColor = !color.value || product.color === color.value
+    return isSeason && isSearch && isColor
+  })
+})
 </script>
 <style scoped>
 .buttons-container {
@@ -116,6 +106,18 @@ const filteredProducts = computed(() => {
   display: flex;
   justify-content: space-between;
   padding: 0;
+}
+.buttons-container .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttons-container .container .color {
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-shrink: 1;
+  aspect-ratio: 1 / 1;
 }
 .container {
   width: 350px;
@@ -183,7 +185,7 @@ const filteredProducts = computed(() => {
   right: 20px;
   width: 30px;
   height: 100%;
-  background-image: url("../../arrow.svg");
+  background-image: url('../../arrow.svg');
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
