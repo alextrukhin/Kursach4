@@ -283,7 +283,7 @@ h3 {
   max-width: auto;
   outline: none;
   border: none;
-  margin: 10px auto;
+  margin: 20px auto;
 }
 .btn:hover {
   box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);

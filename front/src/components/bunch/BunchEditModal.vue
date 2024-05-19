@@ -3,7 +3,7 @@
     <div class="bunch-edit-modal">
       <div class="bunch-edit-modal__left">
         <BunchContainer :products="bunchLocal.products" @update="updateProductsDebounced" />
-        <span class="text">Drag in corner to delete</span>
+        <h2 class="text">Drag in corner to delete</h2>
       </div>
       <div class="bunch-edit-modal__right">
         <div class="btn-container">
@@ -176,7 +176,7 @@ h3 {
   right: 0;
 }
 .btn {
-  background-color: #f9eff2;
+  background-color: #efc1cf;
   margin: 0;
   padding: 0;
   width: 40px;
