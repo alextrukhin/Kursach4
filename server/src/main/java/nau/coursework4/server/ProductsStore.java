@@ -42,8 +42,17 @@ public class ProductsStore {
         return newProduct;
     }
     public Product updateProduct(Product product) {
-        data.removeIf(p -> p.getId() == product.getId());
-        data.add(product);
+        Integer index = null;
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getId() == product.getId()) {
+                index = i;
+                break;
+            }
+        }
+        if (index == null) {
+            throw new RuntimeException("Product not found");
+        }
+        data.set(index, product);
         saveListToFile(data, "products.json");
         return product;
     }

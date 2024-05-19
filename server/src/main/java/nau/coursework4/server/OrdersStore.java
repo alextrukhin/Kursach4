@@ -20,9 +20,9 @@ public class OrdersStore {
         return data;
     }
     public Order getOrderById(Integer id) {
-        for (Order product : data) {
-            if (product.getId() == id) {
-                return product;
+        for (Order order : data) {
+            if (order.getId() == id) {
+                return order;
             }
         }
         return null;
@@ -39,14 +39,23 @@ public class OrdersStore {
         saveListToFile(data, "orders.json");
         return orderAdded;
     }
-    public Order updateOrder(Order product) {
-        data.removeIf(p -> p.getId() == product.getId());
-        data.add(product);
+    public Order updateOrder(Order order) {
+        Integer index = null;
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getId() == order.getId()) {
+                index = i;
+                break;
+            }
+        }
+        if (index == null) {
+            throw new RuntimeException("Order not found");
+        }
+        data.set(index, order);
         saveListToFile(data, "orders.json");
-        return product;
+        return order;
     }
     public void removeOrder(Integer id) {
-        data.removeIf(product -> product.getId() == id);
+        data.removeIf(order -> order.getId() == id);
         saveListToFile(data, "orders.json");
     }
 
