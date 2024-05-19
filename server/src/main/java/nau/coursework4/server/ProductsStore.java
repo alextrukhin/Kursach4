@@ -10,15 +10,37 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ProductsStore class is used to store information about products
+ */
 public class ProductsStore {
+    /**
+     * List of products
+     */
     List<Product> data = new ArrayList<Product>();
+
+    /**
+     * Default constructor
+     */
     public ProductsStore() {
         data = readFromFile("products.json");
     }
 
+    /**
+     * Get list of products
+     *
+     * @return list of products
+     */
     public List<Product> getProducts() {
         return data;
     }
+
+    /**
+     * Get product by id
+     *
+     * @param id product id
+     * @return product
+     */
     public Product getProductById(Integer id) {
         for (Product product : data) {
             if (product.getId() == id) {
@@ -27,6 +49,13 @@ public class ProductsStore {
         }
         return null;
     }
+
+    /**
+     * Add product
+     *
+     * @param product product
+     * @return added product
+     */
     public Product addProduct(Product product) {
         int highestId = 0;
         for (Product p : data) {
@@ -41,6 +70,13 @@ public class ProductsStore {
         saveListToFile(data, "products.json");
         return newProduct;
     }
+
+    /**
+     * Update product
+     *
+     * @param product product
+     * @return updated product
+     */
     public Product updateProduct(Product product) {
         Integer index = null;
         for (int i = 0; i < data.size(); i++) {
@@ -56,6 +92,13 @@ public class ProductsStore {
         saveListToFile(data, "products.json");
         return product;
     }
+
+    /**
+     * Remove product
+     *
+     * @param id     product id
+     * @param orders list of orders
+     */
     public void removeProduct(Integer id, List<Order> orders) {
         for (Order order : orders) {
             for (OrderProduct orderProduct : order.getProducts()) {
@@ -68,6 +111,12 @@ public class ProductsStore {
         saveListToFile(data, "products.json");
     }
 
+    /**
+     * Read list of products from file
+     *
+     * @param fileName file name
+     * @return list of products
+     */
     private List<Product> readFromFile(String fileName) {
         Type REVIEW_TYPE = new TypeToken<List<Product>>() {
         }.getType();
@@ -81,6 +130,13 @@ public class ProductsStore {
         }
         return gson.fromJson(reader, REVIEW_TYPE);
     }
+
+    /**
+     * Save list of products to file
+     *
+     * @param list     list of products
+     * @param fileName file name
+     */
     private void saveListToFile(List<Product> list, String fileName) {
         try (Writer writer = new FileWriter("products.json")) {
             Gson gson = new GsonBuilder().create();

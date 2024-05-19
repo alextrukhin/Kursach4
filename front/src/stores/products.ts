@@ -34,7 +34,7 @@ export const useProductsStore = defineStore('products', () => {
     } catch {
       localStorage.removeItem('carted')
     }
-    const fetchedProducts = await (await fetch(`http://localhost:8080/flowers`)).json()
+    const fetchedProducts = await (await fetch(`http://localhost:8080/products`)).json()
     products.value = fetchedProducts
     productsFetched.value = true
   }

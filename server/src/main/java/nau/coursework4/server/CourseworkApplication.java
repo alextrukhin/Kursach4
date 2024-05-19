@@ -12,17 +12,37 @@ import java.util.stream.Collectors;
 
 import static nau.coursework4.server.Sendgrid.sendEmail;
 
+/**
+ * CourseworkApplication class is used to create a REST API
+ */
 @RestController
 public class CourseworkApplication {
+    /**
+     * ProductsStore instance
+     */
     private final ProductsStore productsStore = ProductsStoreSingleton.getInstance();
+
+    /**
+     * OrdersStore instance
+     */
     private final OrdersStore ordersStore = OrdersStoreSingleton.getInstance();
 
+    /**
+     * Index page
+     *
+     * @return greetings
+     */
     @GetMapping("/")
     public String index() {
         return "Greetings from Spring Boot!";
     }
 
-    @GetMapping(path = "/flowers", produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Get list of products
+     *
+     * @return list of products
+     */
+    @GetMapping(path = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> getCatalog() {
         GsonBuilder builder = new GsonBuilder();
@@ -30,6 +50,12 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(gson.toJson(productsStore.data), HttpStatus.OK);
     }
 
+    /**
+     * Create product
+     *
+     * @param datamap Product object
+     * @return product
+     */
     @PostMapping(path = "/addProduct", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> addProduct(@RequestBody Map<String, Object> datamap) {
@@ -59,6 +85,12 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(gson.toJson(product), HttpStatus.OK);
     }
 
+    /**
+     * Update product
+     *
+     * @param datamap Product object
+     * @return updated product
+     */
     @PatchMapping(path = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> updateProduct(@RequestBody Map<String, Object> datamap) {
@@ -94,6 +126,12 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(gson.toJson(updatedUpdated), HttpStatus.OK);
     }
 
+    /**
+     * Delete product
+     *
+     * @param datamap { id: number }
+     * @return status
+     */
     @DeleteMapping(path = "/deleteProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> deleteProduct(@RequestBody Map<String, Object> datamap) {
@@ -102,6 +140,11 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
+    /**
+     * Get list of orders
+     *
+     * @return list of orders
+     */
     @GetMapping(path = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> getOrders() {
@@ -110,48 +153,54 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(gson.toJson(ordersStore.data), HttpStatus.OK);
     }
 
+    /**
+     * Create order
+     *
+     * @param datamap Order object
+     * @return order
+     */
     @PostMapping(path = "/addOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> addOrder(@RequestBody Map<String, Object> datamap) {
         OrderBuilder orderBuilder = new OrderBuilder();
 
         orderBuilder.setId(0)
-        .setProducts(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("products")).stream().map(p -> {
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.setProductId(Integer.parseInt(p.get("productId").toString()));
-            orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
-            return orderProduct;
-        }).collect(Collectors.toList()))
-        .setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
-            OrderBunch orderProduct = new OrderBunch();
-            BunchBuilder bunchBuilder = new BunchBuilder();
-            LinkedHashMap<String, ?> bunch = (LinkedHashMap<String, ?>) p.get("bunch");
-            if (bunch.get("id") != null) {
-                bunchBuilder.setId(Integer.parseInt(bunch.get("id").toString()));
-            }
-            ArrayList<LinkedHashMap<String, ?>> bunchProducts = (ArrayList<LinkedHashMap<String, ?>>) bunch.get("products");
-            bunchBuilder.setProducts(bunchProducts.stream().map(bp -> {
-                BunchProduct bunchProduct = new BunchProduct();
-                bunchProduct.setId(Integer.parseInt(bp.get("id").toString()));
-                bunchProduct.setX(Integer.parseInt(bp.get("x").toString()));
-                bunchProduct.setY(Integer.parseInt(bp.get("y").toString()));
-                return bunchProduct;
-            }).collect(Collectors.toList()));
-            orderProduct.setBunch(bunchBuilder.build());
-            orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
-            return orderProduct;
-        }).collect(Collectors.toList()))
-        .setStatus(datamap.get("status").toString())
-        .setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()))
-        .setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()))
-        .setClient_firstname(datamap.get("client_firstname").toString())
-        .setClient_lastname(datamap.get("client_lastname").toString())
-        .setClient_address(datamap.get("client_address").toString())
-        .setClient_phone(datamap.get("client_phone").toString())
-        .setClient_email(datamap.get("client_email").toString())
-        .setClient_comments(datamap.get("client_comments").toString())
-        .setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()))
-        .setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
+                .setProducts(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("products")).stream().map(p -> {
+                    OrderProduct orderProduct = new OrderProduct();
+                    orderProduct.setProductId(Integer.parseInt(p.get("productId").toString()));
+                    orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
+                    return orderProduct;
+                }).collect(Collectors.toList()))
+                .setBunches(((ArrayList<LinkedHashMap<String, ?>>) datamap.get("bunches")).stream().map(p -> {
+                    OrderBunch orderProduct = new OrderBunch();
+                    BunchBuilder bunchBuilder = new BunchBuilder();
+                    LinkedHashMap<String, ?> bunch = (LinkedHashMap<String, ?>) p.get("bunch");
+                    if (bunch.get("id") != null) {
+                        bunchBuilder.setId(Integer.parseInt(bunch.get("id").toString()));
+                    }
+                    ArrayList<LinkedHashMap<String, ?>> bunchProducts = (ArrayList<LinkedHashMap<String, ?>>) bunch.get("products");
+                    bunchBuilder.setProducts(bunchProducts.stream().map(bp -> {
+                        BunchProduct bunchProduct = new BunchProduct();
+                        bunchProduct.setId(Integer.parseInt(bp.get("id").toString()));
+                        bunchProduct.setX(Integer.parseInt(bp.get("x").toString()));
+                        bunchProduct.setY(Integer.parseInt(bp.get("y").toString()));
+                        return bunchProduct;
+                    }).collect(Collectors.toList()));
+                    orderProduct.setBunch(bunchBuilder.build());
+                    orderProduct.setQuantity(Integer.parseInt(p.get("quantity").toString()));
+                    return orderProduct;
+                }).collect(Collectors.toList()))
+                .setStatus(datamap.get("status").toString())
+                .setCreatedAt(Long.parseLong(datamap.get("createdAt").toString()))
+                .setLastStatusChange(Long.parseLong(datamap.get("lastStatusChange").toString()))
+                .setClient_firstname(datamap.get("client_firstname").toString())
+                .setClient_lastname(datamap.get("client_lastname").toString())
+                .setClient_address(datamap.get("client_address").toString())
+                .setClient_phone(datamap.get("client_phone").toString())
+                .setClient_email(datamap.get("client_email").toString())
+                .setClient_comments(datamap.get("client_comments").toString())
+                .setPayment_type(Order.PaymentType.valueOf(datamap.get("payment_type").toString()))
+                .setDelivery_type(Order.DeliveryType.valueOf(datamap.get("delivery_type").toString()));
 
         Order order = orderBuilder.build();
         ordersStore.addOrder(order);
@@ -182,6 +231,12 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
+    /**
+     * Update order
+     *
+     * @param datamap Order object
+     * @return updated order
+     */
     @PatchMapping(path = "/updateOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> updateOrder(@RequestBody Map<String, Object> datamap) {
@@ -243,6 +298,12 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
+    /**
+     * Update order status and send email
+     *
+     * @param datamap Order object
+     * @return status
+     */
     @PostMapping(path = "/updateOrderStatus", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> updateOrderStatus(@RequestBody Map<String, Object> datamap) {
@@ -264,6 +325,12 @@ public class CourseworkApplication {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
+    /**
+     * Delete order
+     *
+     * @param datamap { id: number }
+     * @return status
+     */
     @DeleteMapping(path = "/deleteOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<Object> deleteOrder(@RequestBody Map<String, Object> datamap) {

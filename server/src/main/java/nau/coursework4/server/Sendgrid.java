@@ -6,31 +6,43 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Sendgrid class is used to send emails using SendGrid API
+ */
 public class Sendgrid {
+    /**
+     * SendGrid API key
+     */
+    private static final String SENDGRID_API_KEY = "aaa";
 
-    private static final String SENDGRID_API_KEY = "aaa";  // Replace with your SendGrid API key
+    /**
+     * SendGrid URL
+     */
     private static final String SENDGRID_URL = "https://api.sendgrid.com/v3/mail/send";
 
+    /**
+     * Send email using SendGrid API
+     *
+     * @param email   email address
+     * @param subject email subject
+     * @param body    email body
+     */
     public static void sendEmail(String email, String subject, String body) {
-        // Json payload string
         String jsonPayload = String.format("""
-            {
-              "personalizations": [{
-                "to": [{"email": "%s"}]
-              }],
-              "from": {"email": "support@crwnd.dev"},
-              "subject": "%s",
-              "content": [{
-                "type": "text/plain",
-                "value": "%s"
-              }]
-            }
-            """, email, subject, body);
+                {
+                  "personalizations": [{
+                    "to": [{"email": "%s"}]
+                  }],
+                  "from": {"email": "support@crwnd.dev"},
+                  "subject": "%s",
+                  "content": [{
+                    "type": "text/plain",
+                    "value": "%s"
+                  }]
+                }
+                """, email, subject, body);
 
-        // Create HttpClient
         HttpClient client = HttpClient.newHttpClient();
-
-        // Create HttpRequest
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(SENDGRID_URL))
                 .header("Content-Type", "application/json")
@@ -39,12 +51,10 @@ public class Sendgrid {
                 .build();
 
         try {
-            // Send the request and get the response
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if(response.statusCode() != 202) throw new RuntimeException("Failed to send email");
+            if (response.statusCode() != 202) throw new RuntimeException("Failed to send email");
 
-            // Print status code and response body
             System.out.println("[Sendgrid] Status Code: " + response.statusCode());
             System.out.println("[Sendgrid] Response Body: " + response.body());
         } catch (Exception e) {
