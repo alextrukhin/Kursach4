@@ -17,6 +17,12 @@ public class BunchBuilder {
     private List<BunchProduct> products;
 
     /**
+     * Default constructor
+     */
+    public BunchBuilder() {
+    }
+
+    /**
      * Set bunch id
      *
      * @param id bunch id
