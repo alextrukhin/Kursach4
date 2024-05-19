@@ -15,6 +15,8 @@
         :name="elem.product?.name"
         :price="elem.product?.price"
         :quantity="elem.quantity"
+        @set-quantity="productsStore.cartChangeProductQuantity(elem.productId, $event)"
+        @delete="productsStore.uncartProduct(elem.productId)"
       />
     </div>
   </div>
