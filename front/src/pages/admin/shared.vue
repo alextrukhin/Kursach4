@@ -32,7 +32,7 @@ const emit = defineEmits<{
 #admin-list-layout {
   width: 100%;
   max-width: 1200px;
-  height: calc(100vh - 80px - 180px);
+  height: calc(100vh - 80px - 180px - 46px);
   display: flex;
   flex-direction: row;
 }
@@ -56,7 +56,6 @@ const emit = defineEmits<{
 }
 .admin-list-sidebar li a,
 .admin-list-sidebar li div {
-  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
