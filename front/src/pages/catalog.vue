@@ -146,7 +146,7 @@ const filteredProducts = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 35px;
+  border-radius: 50%;
 }
 .color:hover {
   box-shadow: 1px 2px 3px 0px rgba(55, 0, 23, 0.15);
