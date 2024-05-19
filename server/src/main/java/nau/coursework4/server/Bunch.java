@@ -21,7 +21,4 @@ public class Bunch {
     public List<BunchProduct> getProducts() {
         return products;
     }
-    public void setProducts(List<BunchProduct> products) {
-        this.products = products;
-    }
 }
