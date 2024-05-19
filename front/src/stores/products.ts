@@ -176,7 +176,8 @@ export const useProductsStore = defineStore('products', () => {
     })
     if (res.ok) {
       const newProduct = await res.json()
-      products.value.push(newProduct)
+      const index = products.value.findIndex((el) => el.id === newProduct.id)
+      products.value[index] = newProduct
       return newProduct
     }
   }
